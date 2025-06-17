@@ -76,7 +76,7 @@ jobs:
           # - torch: 1.12.0
           #   torchvision: 0.13.0
           - torch: '1.13.0+cpu'
-            torchvision: '0.14.0+cpu'
+            torchvision: 0.14.0+cpu
             python-version: '3.7'
           - torch: '2.0.0'
             torchvision: '0.15.1'
