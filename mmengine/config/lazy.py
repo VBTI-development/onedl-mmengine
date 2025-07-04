@@ -46,14 +46,14 @@ class LazyObject:
             raise TypeError('module should be `str`, `list`, or `tuple`'
                             f'but got {type(module)}, this might be '
                             'a bug of MMEngine, please report it to '
-                            'https://github.com/open-mmlab/mmengine/issues')
+                            'https://github.com/vbti-development/onedl-mmengine/issues')
         self._module: Union[str, list, tuple] = module
 
         if not isinstance(imported, str) and imported is not None:
             raise TypeError('imported should be `str` or None, but got '
                             f'{type(imported)}, this might be '
                             'a bug of MMEngine, please report it to '
-                            'https://github.com/open-mmlab/mmengine/issues')
+                            'https://github.com/vbti-development/onedl-mmengine/issues')
         self._imported = imported
         self.location = location
 

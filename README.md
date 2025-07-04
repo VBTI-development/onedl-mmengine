@@ -21,13 +21,13 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mmengine)](https://pypi.org/project/mmengine/)
 [![pytorch](https://img.shields.io/badge/pytorch-1.6~2.1-yellow)](#installation)
 [![PyPI](https://img.shields.io/pypi/v/mmengine)](https://pypi.org/project/mmengine)
-[![license](https://img.shields.io/github/license/open-mmlab/mmengine.svg)](https://github.com/open-mmlab/mmengine/blob/main/LICENSE)
+[![license](https://img.shields.io/github/license/vbti-development/onedl-mmengine.svg)](https://github.com/vbti-development/onedl-mmengine/blob/main/LICENSE)
 
 [Introduction](#introduction) |
 [Installation](#installation) |
 [Get Started](#get-started) |
 [📘Documentation](https://mmengine.readthedocs.io/en/latest/) |
-[🤔Reporting Issues](https://github.com/open-mmlab/mmengine/issues/new/choose)
+[🤔Reporting Issues](https://github.com/vbti-development/onedl-mmengine/issues/new/choose)
 
 </div>
 
@@ -335,7 +335,7 @@ If you find this project useful in your research, please consider cite:
 @article{mmengine2022,
   title   = {{MMEngine}: OpenMMLab Foundational Library for Training Deep Learning Models},
   author  = {MMEngine Contributors},
-  howpublished = {\url{https://github.com/open-mmlab/mmengine}},
+  howpublished = {\url{https://github.com/vbti-development/onedl-mmengine}},
   year={2022}
 }
 ```
