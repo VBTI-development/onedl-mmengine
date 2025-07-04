@@ -61,9 +61,6 @@ jobs:
           - python-version: '3.10'
             torch: 2.4.1
             torchvision: 0.19.1
-          - python-version: '3.8'
-            torch: 1.13
-            torchvision: 0.14.0
     steps:
       - uses: actions/checkout@v3
       - name: Install uv and set the python version
