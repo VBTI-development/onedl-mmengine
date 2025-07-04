@@ -32,6 +32,9 @@ def get_installed_path(package: str) -> str:
     Args:
         package (str): Name of the package.
 
+    Returns:
+        str: The path to the installed package.
+
     Example:
         >>> get_installed_path('mmcls')
         '.../lib/python3.10/site-packages/mmcls'
@@ -40,7 +43,7 @@ def get_installed_path(package: str) -> str:
     import os.path as osp
 
     try:
-        # Prefer importlib.metadata for modern Python
+        # Use importlib.metadata for distribution info (Python 3.8+)
         try:
             from importlib.metadata import PackageNotFoundError, distribution
         except ImportError:
@@ -50,7 +53,7 @@ def get_installed_path(package: str) -> str:
         try:
             dist = distribution(package)
         except PackageNotFoundError:
-            # If not installed, try to find the module spec
+            # If not installed as a distribution, try to find the module spec
             spec = importlib.util.find_spec(package)
             if spec and spec.origin:
                 return osp.dirname(spec.origin)
@@ -60,41 +63,26 @@ def get_installed_path(package: str) -> str:
                     'for `get_installed_path`')
             else:
                 raise ImportError(f'Package {package} is not installed.')
-        # Try to find the top-level module directory
-        possible_path = osp.join(dist.locate_file(''), package)
-        if osp.exists(possible_path):
-            return possible_path
-        else:
-            # Fallback: try to find the module by spec
-            spec = importlib.util.find_spec(package)
-            if spec and spec.origin:
-                return osp.dirname(spec.origin)
-            else:
-                raise ImportError(
-                    f'Cannot determine installed path for {package}.')
-    except Exception:
-        # Legacy fallback using pkg_resources
-        from pkg_resources import DistributionNotFound, get_distribution
 
-        try:
-            pkg = get_distribution(package)
-        except DistributionNotFound as e:
-            spec = importlib.util.find_spec(package)
-            if spec and spec.origin:
-                return osp.dirname(spec.origin)
-            elif spec:
-                raise RuntimeError(
-                    f'{package} is a namespace package, which is invalid '
-                    'for `get_installed_path`')
-            else:
-                raise e
+        # Try to infer the top-level module name from top_level.txt
+        top_level = dist.read_text('top_level.txt')
+        if top_level:
+            module_name = top_level.split('\n')[0].strip()
+            possible_path = osp.join(dist.locate_file(''), module_name)
+            if osp.exists(possible_path):
+                return possible_path
 
-        possible_path = osp.join(pkg.location, package)  # type: ignore
-        if osp.exists(possible_path):
-            return possible_path
+        # Fallback: try to find the module by spec
+        spec = importlib.util.find_spec(package)
+        if spec and spec.origin:
+            return osp.dirname(spec.origin)
         else:
-            raise ImportError(
+            raise PackageNotFoundError(
                 f'Cannot determine installed path for {package}.')
+
+    except Exception:
+        raise PackageNotFoundError(
+            f'Cannot determine installed path for {package}.')
 
 
 def package2module(package: str):

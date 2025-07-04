@@ -38,6 +38,7 @@ test = [
     "lion-pytorch",
     "lmdb",
     "mlflow",
+    "opencv-python",
     "parameterized",
     "pydantic",
     "pytest",
