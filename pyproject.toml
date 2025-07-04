@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "VBTI Contributors", email = "dev@vbti.nl" }
 ]
-license = "Apache-2.0"
+license = { text = "Apache-2.0" }
 requires-python = ">=3.7"
 classifiers = [
     "Development Status :: 4 - Beta",
