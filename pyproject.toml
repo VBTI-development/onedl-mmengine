@@ -96,8 +96,13 @@ Homepage = "https://onedl.ai"
 Repository = "https://github.com/VBTI-development/mmcv"
 Documentation = "https://mmengine.readthedocs.io/en/latest/"
 
+
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.packages.find]
 include = ["mmengine"]
+exclude = ["tests"]
 namespaces = false
 
 [build-system]

@@ -19,9 +19,9 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'mmengine'
-copyright = '2022, mmengine contributors'
-author = 'mmengine contributors'
+project = 'onedl-mmengine'
+copyright = '2025, VBTI'
+author = 'VBTI Authors'
 
 version_file = '../../mmengine/version.py'
 with open(version_file) as f:
@@ -48,6 +48,7 @@ extensions = [
     'sphinx_copybutton',
     'sphinx.ext.autodoc.typehints',
     'sphinx_tabs.tabs',
+    'sphinxcontrib.jquery',
 ]  # yapf: disable
 autodoc_typehints = 'description'
 myst_heading_anchors = 4

@@ -43,6 +43,7 @@ jobs:
         run: uv pip install -e . -v
       - name: Install unit tests dependencies
         run: |
+          uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
           uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main
       - name: Run unittests and generate coverage report
@@ -83,6 +84,7 @@ jobs:
         run: uv pip install -e . -v
       - name: Install unit tests dependencies
         run: |
+          uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
       - name: Install mmcv
         run: |
@@ -142,6 +144,7 @@ jobs:
         run: uv pip install -e . -v
       - name: Install unit tests dependencies
         run: |
+          uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
           uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main
       - name: Run unittests and generate coverage report
