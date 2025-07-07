@@ -121,7 +121,7 @@ jobs:
         run: df -h
       - name: Install torch
         run: |
-          uv pip install torch==${{ matrix.torch }} torchvision
+          uv pip install -v torch==${{ matrix.torch }} torchvision
       - name: Show disk usage
         run: df -h
       - name: Install mmengine
