@@ -84,6 +84,8 @@ jobs:
 
   build_gpu:
     runs-on: ubuntu-22.04
+    container:
+      image: nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
     needs: build_cpu
     defaults:
       run:

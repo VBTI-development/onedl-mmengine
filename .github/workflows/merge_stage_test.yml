@@ -132,7 +132,7 @@ jobs:
   build_cu118:
     runs-on: ubuntu-22.04
     container:
-      image: pytorch/pytorch:2.3.1-cuda11.8-cudnn8-runtime
+      image: nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
       # python 3.10
     steps:
       - uses: actions/checkout@v3
@@ -146,6 +146,7 @@ jobs:
         run: uv pip install -e . -v
       - name: Install unit tests dependencies
         run: |
+          uv pip install torch==2.3.1 torchvision
           uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
           uv pip install ninja psutil
