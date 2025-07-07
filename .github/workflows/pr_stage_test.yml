@@ -122,7 +122,7 @@ jobs:
         run: df -h
       - name: Install torch
         run: |
-          uv pip install -v --torch-backend=${{matrix.cuda}} torch==${{ matrix.torch }} torchvision
+          uv pip install --no-cache-dir -v --torch-backend=${{matrix.cuda}} torch==${{ matrix.torch }} torchvision
       - name: Show disk usage
         run: df -h
       - name: Install mmengine
