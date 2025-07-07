@@ -26,7 +26,6 @@ dependencies = [
     "regex; sys_platform == 'win32'"
 ]
 
-
 [dependency-groups]
 test = [
     "aim<=3.17.5; sys_platform != 'win32'",
@@ -94,7 +93,7 @@ all = [
 
 [project.urls]
 Homepage = "https://onedl.ai"
-Repository = "https://github.com/VBTI-development/mmcv"
+Repository = "https://github.com/VBTI-development/onedl-mmengine"
 Documentation = "https://mmengine.readthedocs.io/en/latest/"
 
 
