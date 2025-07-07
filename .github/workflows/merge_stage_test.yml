@@ -46,7 +46,7 @@ jobs:
           uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
           uv pip install ninja psutil
-          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main --no-build-isolation
+          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@chore/rename-to-onedl-cv --no-build-isolation
       - name: Run unittests and generate coverage report
         run: |
           uv run coverage run --branch --source mmengine -m pytest tests/  --ignore tests/test_dist
@@ -90,7 +90,7 @@ jobs:
       - name: Install mmcv
         run: |
           uv pip install ninja psutil
-          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main --no-build-isolation
+          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@chore/rename-to-onedl-cv --no-build-isolation
         if: ${{ matrix.torch == '2.4.1' }}
       - name: Run unittests
         run: |
@@ -132,7 +132,7 @@ jobs:
   build_cu118:
     runs-on: ubuntu-22.04
     container:
-      image: nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
+      image: nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
       # python 3.10
     steps:
       - uses: actions/checkout@v3
@@ -150,7 +150,7 @@ jobs:
           uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
           uv pip install ninja psutil
-          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main --no-build-isolation
+          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@chore/rename-to-onedl-cv --no-build-isolation
       - name: Run unittests and generate coverage report
         run: |
           uv run coverage run --branch --source mmengine -m pytest tests/  --ignore tests/test_dist/
