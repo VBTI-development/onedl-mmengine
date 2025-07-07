@@ -33,7 +33,7 @@ jobs:
       matrix:
         python-version: ['3.10']
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v5
         with:
@@ -62,7 +62,7 @@ jobs:
             torch: 2.4.1
             torchvision: 0.19.1
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v5
         with:
@@ -86,7 +86,7 @@ jobs:
     runs-on: ubuntu-22.04
     container:
       image: nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
-    needs: build_cpu
+    # needs: build_cpu
     defaults:
       run:
         shell: bash -l {0}
@@ -100,12 +100,9 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 2048
-          temp-reserve-mb: 512
-      - uses: actions/checkout@v3
+      - name: Show disk usage
+        run: df -h
+      - uses: actions/checkout@v4
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v5
         with:
@@ -113,6 +110,8 @@ jobs:
       - name: Install system dependencies
         run: |
           apt-get update && apt-get install -y git ffmpeg libturbojpeg && apt-get clean -y
+      - name: Show disk usage
+        run: df -h
       - name: Install dependencies
         run: |
           uv pip install torch==${{ matrix.torch }} torchvision
@@ -121,6 +120,8 @@ jobs:
           uv pip install -r pyproject.toml --group test
           uv pip install ninja psutil
           uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@chore/rename-to-onedl-cv --no-build-isolation
+      - name: Show disk usage
+        run: df -h
       - name: Run unit tests with coverage
         run: |
           uv run coverage run --branch --source mmengine -m pytest tests/  --ignore tests/test_dist
@@ -153,7 +154,7 @@ jobs:
   #           torch: 2.1.0
   #           torchvision: 0.16.0
   #   steps:
-  #     - uses: actions/checkout@v3
+  #     - uses: actions/checkout@v4
   #     - name: Set up Python ${{ matrix.python-version }}
   #       uses: actions/setup-python@v4
   #       with:
