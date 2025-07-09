@@ -126,6 +126,10 @@ jobs:
           uv pip install -v --torch-backend=${{matrix.cuda}} torch==${{ matrix.torch }} torchvision
       - name: Show disk usage
         run: df -h
+      - name: Clear uv cache
+        run: uv cache clean
+      - name: Show disk usage
+        run: df -h
       - name: Install mmengine
         run: |
           uv pip install -e . -v
