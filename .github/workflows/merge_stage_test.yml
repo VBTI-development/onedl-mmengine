@@ -132,10 +132,10 @@ jobs:
   #       run: |
   #         pytest tests/  --ignore tests/test_dist/
 
-  build_cu128:
+  build_cu118:
     runs-on: ubuntu-22.04
     container:
-      image: nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
+      image: nvidia/cuda:11.8.1-cudnn-devel-ubuntu22.04
     env:
       UV_CACHE_DIR: /__w/_uv_cache
     steps:
@@ -152,7 +152,7 @@ jobs:
         run: uv pip install -e . -v
       - name: Install unit tests dependencies
         run: |
-          uv pip install --torch-backend=cu128 torch==2.5.1 torchvision
+          uv pip install --torch-backend=cu118 torch==2.5.1 torchvision
           uv cache clean
           uv pip install -r pyproject.toml --group test
           uv pip install ninja psutil
