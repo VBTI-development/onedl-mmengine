@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install uv and set the python version
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install uv and set the python version
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install PyTorch
@@ -105,10 +105,10 @@ jobs:
         run: df -h
       - uses: actions/checkout@v4
       - name: Install uv and set the python version
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-          path: /__w/_uv_cache
+          cache-local-path: /__w/_uv_cache
       - name: Install system dependencies
         run: |
           apt-get update && apt-get install -y git ffmpeg libturbojpeg && apt-get clean -y
@@ -144,6 +144,7 @@ jobs:
         run: df -h
       - name: Run unit tests with coverage
         run: |
+          set -e
           uv run coverage run --branch --source mmengine -m pytest tests/  --ignore tests/test_dist
           uv run coverage xml
       - name: Code Coverage Summary Report
