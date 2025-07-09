@@ -35,6 +35,7 @@ jobs:
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
+          activate-environment: true
           python-version: ${{ matrix.python-version }}
       - name: Install PyTorch
         run: |
@@ -77,6 +78,7 @@ jobs:
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
+          activate-environment: true
           python-version: ${{ matrix.python-version }}
       - name: Install PyTorch
         run: |
@@ -139,6 +141,7 @@ jobs:
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
+          activate-environment: true
           python-version: '3.10'
       - name: Install system dependencies
         run: apt-get update && apt-get install -y git ffmpeg libturbojpeg && apt-get clean -y
