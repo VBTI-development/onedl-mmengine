@@ -152,7 +152,7 @@ jobs:
         run: uv pip install -e . -v
       - name: Install unit tests dependencies
         run: |
-          uv pip install --torch-backend=cu128 torch==2.3.1 torchvision
+          uv pip install --torch-backend=cu128 torch==2.5.1 torchvision
           uv cache clean
           uv pip install -r pyproject.toml --group test
           uv pip install ninja psutil
