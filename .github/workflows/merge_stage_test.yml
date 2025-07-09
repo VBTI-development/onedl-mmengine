@@ -50,6 +50,7 @@ jobs:
           uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@chore/rename-to-onedl-cv --no-build-isolation
       - name: Run unittests and generate coverage report
         run: |
+          set -e
           uv run coverage run --branch --source mmengine -m pytest tests/  --ignore tests/test_dist
           uv run coverage xml
           uv run coverage report -m
@@ -156,6 +157,7 @@ jobs:
           uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@chore/rename-to-onedl-cv --no-build-isolation
       - name: Run unittests and generate coverage report
         run: |
+          set -e
           uv run coverage run --branch --source mmengine -m pytest tests/  --ignore tests/test_dist/
           uv run coverage xml
           uv run coverage report -m
