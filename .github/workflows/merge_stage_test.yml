@@ -135,7 +135,7 @@ jobs:
   build_cu128:
     runs-on: ubuntu-22.04
     container:
-      image: nvidia/cuda:12.8.0-cudnn8-devel-ubuntu22.04
+      image: nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
     env:
       UV_CACHE_DIR: /__w/_uv_cache
     steps:
