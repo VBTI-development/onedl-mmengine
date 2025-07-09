@@ -132,11 +132,12 @@ jobs:
   #       run: |
   #         pytest tests/  --ignore tests/test_dist/
 
-  build_cu118:
+  build_cu128:
     runs-on: ubuntu-22.04
     container:
-      image: nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
-      # python 3.10
+      image: nvidia/cuda:12.8.0-cudnn8-devel-ubuntu22.04
+    env:
+      UV_CACHE_DIR: /__w/_uv_cache
     steps:
       - uses: actions/checkout@v4
       - name: Install uv and set the python version
@@ -144,14 +145,15 @@ jobs:
         with:
           activate-environment: true
           python-version: '3.10'
+          cache-local-path: /__w/_uv_cache
       - name: Install system dependencies
         run: apt-get update && apt-get install -y git ffmpeg libturbojpeg && apt-get clean -y
       - name: Build MMEngine from source
         run: uv pip install -e . -v
       - name: Install unit tests dependencies
         run: |
-          uv pip install torch==2.3.1 torchvision
-          uv pip install -r pyproject.toml
+          uv pip install--torch-backend=cu128 torch==2.3.1 torchvision
+          uv cache clean
           uv pip install -r pyproject.toml --group test
           uv pip install ninja psutil
           uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@chore/rename-to-onedl-cv --no-build-isolation
