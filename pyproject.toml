@@ -98,12 +98,11 @@ Documentation = "https://mmengine.readthedocs.io/en/latest/"
 
 
 [tool.setuptools]
-include-package-data = true
+
 
 [tool.setuptools.packages.find]
-include = ["mmengine"]
+include = ["mmengine", "mmengine.*"]
 exclude = ["tests"]
-namespaces = false
 
 [build-system]
 requires = ["setuptools>=42", "wheel"]
