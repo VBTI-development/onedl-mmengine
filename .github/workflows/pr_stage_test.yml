@@ -108,6 +108,7 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
+          path: /__w/_uv_cache
       - name: Install system dependencies
         run: |
           apt-get update && apt-get install -y git ffmpeg libturbojpeg && apt-get clean -y
