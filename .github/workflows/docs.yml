@@ -51,7 +51,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-24.04
     needs: build
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
       pages: write
