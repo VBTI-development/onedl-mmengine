@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-n-publish_with_ops:
+  build-n-publish:
     runs-on: ubuntu-22.04
     permissions:
       id-token: write
@@ -21,9 +21,7 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           python-version: '3.10'
-      - name: Install ninja to speed the compilation
-        run: uv pip install -r pyproject.toml
-      - name: Build MMCV
+      - name: Build MMEngine
         run: |
           uv build --sdist
       - name: Publish distribution to PyPI
