@@ -1,0 +1,62 @@
+name: Deploy Sphinx Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:  # Test if the docs build in any PR. Docs are not deployed on PR.
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.7.20"
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Install dependencies
+        run: |
+          uv sync --locked --group docs  # Pin to specific version for reproducibility
+
+      - name: Build documentation
+        run: |
+          cd docs/en
+          uv run make html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/en/_build/html
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
