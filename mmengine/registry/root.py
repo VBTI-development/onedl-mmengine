@@ -3,7 +3,7 @@
 projects.
 
 More datails can be found at
-https://mmengine.readthedocs.io/en/latest/advanced_tutorials/registry.html.
+https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/registry.html.
 """
 
 from .build_functions import (build_model_from_cfg, build_optimizer_from_cfg,

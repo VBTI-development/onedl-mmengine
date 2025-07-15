@@ -71,7 +71,7 @@ class Registry:
         >>> fasterrcnn = DETECTORS.build(dict(type='det.MaskRCNN'))
 
     More advanced usages can be found at
-    https://mmengine.readthedocs.io/en/latest/advanced_tutorials/registry.html.
+    https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/registry.html.
     """
 
     def __init__(self,

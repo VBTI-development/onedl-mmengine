@@ -41,8 +41,8 @@ class FileClient:
     object will be returned.
 
     Warning:
-        `FileClient` will be deprecated in future. Please use io functions
-        in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+        `FileClient` will be deprecated in future. Please use io functions in
+        https://onedl-mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
 
     Args:
         backend (str, optional): The storage backend type. Options are "disk",
@@ -89,7 +89,7 @@ class FileClient:
         print_log(
             '"FileClient" will be deprecated in future. Please use io '
             'functions in '
-            'https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io',  # noqa: E501
+            'https://onedl-mmengine.readthedocs.io/en/latest/api/fileio.html#file-io',  # noqa: E501
             logger='current',
             level=logging.WARNING)
         if backend is None and prefix is None:

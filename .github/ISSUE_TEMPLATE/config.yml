@@ -5,7 +5,7 @@ contact_links:
     url: https://github.com/vbti-development/onedl-mmengine/discussions
     about: Ask general usage questions and discuss with other mmengine community members
   - name: MMEngine Documentation
-    url: https://mmengine.readthedocs.io/en/latest/
+    url: https://onedl-mmengine.readthedocs.io/en/latest/
     about: Check if your question is answered in docs
   - name: 🌐 Explore OpenMMLab
     url: https://openmmlab.com/

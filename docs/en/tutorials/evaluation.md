@@ -13,11 +13,11 @@ When training or testing a model based on MMEngine, users only need to specify t
 val_evaluator = dict(type='Accuracy', top_k=(1, 5))
 ```
 
-For specific parameter settings of evaluation metrics, users can refer to the documentation of the relevant algorithm libraries, such as the [Accuracy](https://mmpretrain.readthedocs.io/en/latest/api/generated/mmpretrain.evaluation.Accuracy.html#mmpretrain.evaluation.Accuracy) documentation in the above example.
+For specific parameter settings of evaluation metrics, users can refer to the documentation of the relevant algorithm libraries, such as the [Accuracy](https://onedl-mmpretrain.readthedocs.io/en/latest/api/generated/mmpretrain.evaluation.Accuracy.html#mmpretrain.evaluation.Accuracy) documentation in the above example.
 
 ### Using multiple evaluation metrics
 
-If multiple evaluation metrics need to be evaluated simultaneously, `val_evaluator` or `test_evaluator` can be set as a list, with each item being the configuration information for an evaluation metric. For example, when using [MMDetection](https://github.com/open-mmlab/mmdetection) to train a panoptic segmentation model, if the user wants to evaluate both the object detection (COCO AP/AR) and panoptic segmentation accuracy during the model testing stage, they can configure it as follows:
+If multiple evaluation metrics need to be evaluated simultaneously, `val_evaluator` or `test_evaluator` can be set as a list, with each item being the configuration information for an evaluation metric. For example, when using [MMDetection](https://github.com/vbti-development/onedl-mmdetection) to train a panoptic segmentation model, if the user wants to evaluate both the object detection (COCO AP/AR) and panoptic segmentation accuracy during the model testing stage, they can configure it as follows:
 
 ```python
 test_evaluator = [

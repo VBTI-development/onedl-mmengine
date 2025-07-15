@@ -46,8 +46,8 @@ git remote add upstream git@github.com:vbti-development/onedl-mmengine
 Check whether remote repository has been added successfully by `git remote -v`
 
 ```bash
-origin	git@github.com:{username}/mmengine.git (fetch)
-origin	git@github.com:{username}/mmengine.git (push)
+origin	git@github.com:{username}/onedl-mmengine.git (fetch)
+origin	git@github.com:{username}/onedl-mmengine.git (push)
 upstream	git@github.com:vbti-development/onedl-mmengine (fetch)
 upstream	git@github.com:vbti-development/onedl-mmengine (push)
 ```
