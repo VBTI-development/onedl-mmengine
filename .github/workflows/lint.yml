@@ -27,7 +27,6 @@ jobs:
           interrogate -v --ignore-init-method --ignore-magic --ignore-module --ignore-nested-functions --ignore-regex "__repr__" --fail-under 80 mmengine
   uv-lock:
     runs-on: ubuntu-latest
-    needs: lint
     steps:
       - uses: actions/checkout@v4
       - name: Install uv and set the python version
