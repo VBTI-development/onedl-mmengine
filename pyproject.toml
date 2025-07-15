@@ -54,7 +54,7 @@ docs = [
     "deepspeed",
     "myst-parser",
     "opencv-python",
-    "pytorch_sphinx_theme @ git+https://github.com/VBTI-development/onedl_sphinx_theme.git@chore/remove-cn-docs",
+    "pytorch_sphinx_theme @ git+https://github.com/VBTI-development/onedl_sphinx_theme.git@master",
     "sphinx",
     "sphinx-copybutton",
     "sphinx-tabs",
