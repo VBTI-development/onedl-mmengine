@@ -1245,7 +1245,7 @@ class Runner:
             schedulers build from ``scheduler``.
 
         .. _optimizer-docs:
-           https://mmengine.readthedocs.io/en/latest/tutorials/optim_wrapper.html
+           https://onedl-mmengine.readthedocs.io/en/latest/tutorials/optim_wrapper.html
         """
         param_schedulers: ParamSchedulerType
         if not isinstance(self.optim_wrapper, OptimWrapperDict):

@@ -386,7 +386,7 @@ class Config:
 
     You can find more advance usage in the `config tutorial`_.
 
-    .. _config tutorial: https://mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html
+    .. _config tutorial: https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html
     """  # noqa: E501
 
     def __init__(
@@ -581,7 +581,7 @@ class Config:
                     f'since you use the syntax like `_base_ = "{node.targets[0].id}"` '  # noqa: E501
                     'in your config. You should use `with read_base(): ... to` '  # noqa: E501
                     'mark the inherited config file. See more information '
-                    'in https://mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html'  # noqa: E501
+                    'in https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html'  # noqa: E501
                 )
 
             if not isinstance(node, ast.With):
@@ -847,7 +847,7 @@ class Config:
                 '"lazy_import" or non-"lazy_import". You got this error '
                 'since you use the syntax like `with read_base(): ...` '
                 f'or import non-builtin module in {filename}. See more '
-                'information in https://mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html'  # noqa: E501
+                'information in https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html'  # noqa: E501
             )
 
         filename = osp.abspath(osp.expanduser(filename))
@@ -1853,6 +1853,6 @@ def read_base():
 
     You can see more usage of Python-style configuration in the `tutorial`_
 
-    .. _tutorial: https://mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html#a-pure-python-style-configuration-file-beta
+    .. _tutorial: https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html#a-pure-python-style-configuration-file-beta
     """  # noqa: E501
     yield

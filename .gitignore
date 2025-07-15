@@ -124,6 +124,9 @@ work_dirs/
 
 *.aim
 *.dvc
+
+# generated files
+.dist_test/
+temp_dir/
 dvc.yaml
 dist/
-.dist_test/

@@ -123,9 +123,9 @@ A total of 9 developers contributed to this release. Thanks [@POI-WX](https://gi
 
 ### Highlights
 
-- Support training with [ColossalAI](https://colossalai.org/). Refer to the [Training Large Models](https://mmengine.readthedocs.io/en/latest/common_usage/large_model_training.html#colossalai) for more detailed usages.
-- Support gradient checkpointing. Refer to the [Save Memory on GPU](https://mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html#gradient-checkpointing) for more details.
-- Supports multiple visualization backends, including `NeptuneVisBackend`, `DVCLiveVisBackend` and `AimVisBackend`. Refer to [Visualization Backends](https://mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html) for more details.
+- Support training with [ColossalAI](https://colossalai.org/). Refer to the [Training Large Models](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/large_model_training.html#colossalai) for more detailed usages.
+- Support gradient checkpointing. Refer to the [Save Memory on GPU](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html#gradient-checkpointing) for more details.
+- Supports multiple visualization backends, including `NeptuneVisBackend`, `DVCLiveVisBackend` and `AimVisBackend`. Refer to [Visualization Backends](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html) for more details.
 
 ### New Features & Enhancements
 
@@ -206,7 +206,7 @@ A total of 3 developers contributed to this release. Thanks [@HAOCHENYE](https:/
 
 ### Highlights
 
-- Support enabling `efficient_conv_bn_eval` for efficient convolution and batch normalization. See [save memory on gpu](https://mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html#save-memory-on-gpu) for more details
+- Support enabling `efficient_conv_bn_eval` for efficient convolution and batch normalization. See [save memory on gpu](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html#save-memory-on-gpu) for more details
 - Add [Llama2 finetune example](https://github.com/open-mmlab/mmengine/tree/main/examples/llama2)
 - Support multi-node distributed training with MLU backend
 
@@ -274,7 +274,7 @@ A total of 9 developers contributed to this release. Thanks [@HAOCHENYE](https:/
   - Support inheriting two configuration files containing the same field
   - Load the configuration file without other third-party requirements
 
-  Refer to the [tutorial](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html#a-pure-python-style-configuration-file-beta) for more detailed usages.
+  Refer to the [tutorial](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html#a-pure-python-style-configuration-file-beta) for more detailed usages.
 
   ![new-config-en](https://github.com/open-mmlab/mmengine/assets/57566630/7eb41748-9374-488f-901e-fcd7f0d3c8a1)
 
@@ -447,7 +447,7 @@ A total of 7 developers contributed to this release. Thanks [@LEFTeyex](https://
 
 ### Highlights
 
-- Support PyTorch 2.0! Accelerate training by compiling models. See the tutorial [Model Compilation](https://mmengine.readthedocs.io/en/latest/common_usage/speed_up_training.html#model-compilation) for details
+- Support PyTorch 2.0! Accelerate training by compiling models. See the tutorial [Model Compilation](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/speed_up_training.html#model-compilation) for details
 - Add `EarlyStoppingHook` to stop training when the metric does not improve
 
 ### New Features & Enhancements

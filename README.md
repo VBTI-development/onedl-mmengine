@@ -12,20 +12,21 @@
   </div>
 <div>&nbsp;</div>
 
-[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://mmengine.readthedocs.io/en/latest/)
-[![pytorch](https://img.shields.io/badge/pytorch-2.0~2.5-yellow)](#installation)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mmcv)](https://pypi.org/project/onedl-mmcv/)
-[![PyPI](https://img.shields.io/pypi/v/onedl-mmengine)](https://pypi.org/project/onedl-mmengine)
+[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://onedl-mmengine.readthedocs.io/en/latest/)
 [![license](https://img.shields.io/github/license/vbti-development/onedl-mmengine.svg)](https://github.com/vbti-development/onedl-mmengine/blob/main/LICENSE)
 
-[![Build Status](https://github.com/VBTI-development/onedl-mmengine/workflows/merge_stage_test/badge.svg)](https://github.com/VBTI-development/onedl-mmengine/actions)
+[![pytorch](https://img.shields.io/badge/pytorch-2.0~2.5-yellow)](#installation)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/onedl-mmengine)](https://pypi.org/project/onedl-mmengine/)
+[![PyPI](https://img.shields.io/pypi/v/onedl-mmengine)](https://pypi.org/project/onedl-mmengine)
+
+[![Build Status](https://github.com/VBTI-development/onedl-mmpretrain/actions/workflows/merge_stage_test.yml/badge.svg)](https://github.com/VBTI-development/onedl-mmpretrain/actions/workflows/merge_stage_test.yml)
 [![open issues](https://isitmaintained.com/badge/open/VBTI-development/onedl-mmengine.svg)](https://github.com/VBTI-development/onedl-mmengine/issues)
 [![issue resolution](https://isitmaintained.com/badge/resolution/VBTI-development/onedl-mmengine.svg)](https://github.com/VBTI-development/onedl-mmengine/issues)
 
 [Introduction](#introduction) |
 [Installation](#installation) |
 [Get Started](#get-started) |
-[📘Documentation](https://mmengine.readthedocs.io/en/latest/) |
+[📘Documentation](https://onedl-mmengine.readthedocs.io/en/latest/) |
 [🤔Reporting Issues](https://github.com/vbti-development/onedl-mmengine/issues/new/choose)
 
 </div>
@@ -51,25 +52,25 @@ MMEngine is a foundational library for training deep learning models based on Py
 
 **Integrate mainstream large-scale model training frameworks**
 
-- [ColossalAI](https://mmengine.readthedocs.io/en/latest/common_usage/large_model_training.html#colossalai)
-- [DeepSpeed](https://mmengine.readthedocs.io/en/latest/common_usage/large_model_training.html#deepspeed)
-- [FSDP](https://mmengine.readthedocs.io/en/latest/common_usage/large_model_training.html#fullyshardeddataparallel-fsdp)
+- [ColossalAI](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/large_model_training.html#colossalai)
+- [DeepSpeed](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/large_model_training.html#deepspeed)
+- [FSDP](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/large_model_training.html#fullyshardeddataparallel-fsdp)
 
 **Supports a variety of training strategies**
 
-- [Mixed Precision Training](https://mmengine.readthedocs.io/en/latest/common_usage/speed_up_training.html#mixed-precision-training)
-- [Gradient Accumulation](https://mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html#gradient-accumulation)
-- [Gradient Checkpointing](https://mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html#gradient-checkpointing)
+- [Mixed Precision Training](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/speed_up_training.html#mixed-precision-training)
+- [Gradient Accumulation](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html#gradient-accumulation)
+- [Gradient Checkpointing](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html#gradient-checkpointing)
 
 **Provides a user-friendly configuration system**
 
-- [Pure Python-style configuration files, easy to navigate](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html#a-pure-python-style-configuration-file-beta)
-- [Plain-text-style configuration files, supporting JSON and YAML](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html)
+- [Pure Python-style configuration files, easy to navigate](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html#a-pure-python-style-configuration-file-beta)
+- [Plain-text-style configuration files, supporting JSON and YAML](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html)
 
 **Covers mainstream training monitoring platforms**
 
-- [TensorBoard](https://mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#tensorboard) | [WandB](https://mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#wandb) | [MLflow](https://mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#mlflow-wip)
-- [ClearML](https://mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#clearml) | [Neptune](https://mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#neptune) | [DVCLive](https://mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#dvclive) | [Aim](https://mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#aim)
+- [TensorBoard](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#tensorboard) | [WandB](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#wandb) | [MLflow](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#mlflow-wip)
+- [ClearML](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#clearml) | [Neptune](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#neptune) | [DVCLive](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#dvclive) | [Aim](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/visualize_training_log.html#aim)
 
 ## Installation
 
@@ -232,71 +233,71 @@ runner.train()
 <details>
 <summary>Tutorials</summary>
 
-- [Runner](https://mmengine.readthedocs.io/en/latest/tutorials/runner.html)
-- [Dataset and DataLoader](https://mmengine.readthedocs.io/en/latest/tutorials/dataset.html)
-- [Model](https://mmengine.readthedocs.io/en/latest/tutorials/model.html)
-- [Evaluation](https://mmengine.readthedocs.io/en/latest/tutorials/evaluation.html)
-- [OptimWrapper](https://mmengine.readthedocs.io/en/latest/tutorials/optim_wrapper.html)
-- [Parameter Scheduler](https://mmengine.readthedocs.io/en/latest/tutorials/param_scheduler.html)
-- [Hook](https://mmengine.readthedocs.io/en/latest/tutorials/hook.html)
+- [Runner](https://onedl-mmengine.readthedocs.io/en/latest/tutorials/runner.html)
+- [Dataset and DataLoader](https://onedl-mmengine.readthedocs.io/en/latest/tutorials/dataset.html)
+- [Model](https://onedl-mmengine.readthedocs.io/en/latest/tutorials/model.html)
+- [Evaluation](https://onedl-mmengine.readthedocs.io/en/latest/tutorials/evaluation.html)
+- [OptimWrapper](https://onedl-mmengine.readthedocs.io/en/latest/tutorials/optim_wrapper.html)
+- [Parameter Scheduler](https://onedl-mmengine.readthedocs.io/en/latest/tutorials/param_scheduler.html)
+- [Hook](https://onedl-mmengine.readthedocs.io/en/latest/tutorials/hook.html)
 
 </details>
 
 <details>
 <summary>Advanced tutorials</summary>
 
-- [Registry](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/registry.html)
-- [Config](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html)
-- [BaseDataset](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/basedataset.html)
-- [Data Transform](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/data_transform.html)
-- [Weight Initialization](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/initialize.html)
-- [Visualization](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/visualization.html)
-- [Abstract Data Element](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/data_element.html)
-- [Distribution Communication](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/distributed.html)
-- [Logging](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/logging.html)
-- [File IO](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/fileio.html)
-- [Global manager (ManagerMixin)](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/manager_mixin.html)
-- [Use modules from other libraries](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/cross_library.html)
-- [Test Time Agumentation](https://mmengine.readthedocs.io/en/latest/advanced_tutorials/test_time_augmentation.html)
+- [Registry](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/registry.html)
+- [Config](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/config.html)
+- [BaseDataset](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/basedataset.html)
+- [Data Transform](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/data_transform.html)
+- [Weight Initialization](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/initialize.html)
+- [Visualization](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/visualization.html)
+- [Abstract Data Element](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/data_element.html)
+- [Distribution Communication](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/distributed.html)
+- [Logging](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/logging.html)
+- [File IO](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/fileio.html)
+- [Global manager (ManagerMixin)](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/manager_mixin.html)
+- [Use modules from other libraries](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/cross_library.html)
+- [Test Time Agumentation](https://onedl-mmengine.readthedocs.io/en/latest/advanced_tutorials/test_time_augmentation.html)
 
 </details>
 
 <details>
 <summary>Examples</summary>
 
-- [Train a GAN](https://mmengine.readthedocs.io/en/latest/examples/train_a_gan.html)
+- [Train a GAN](https://onedl-mmengine.readthedocs.io/en/latest/examples/train_a_gan.html)
 
 </details>
 
 <details>
 <summary>Common Usage</summary>
 
-- [Resume Training](https://mmengine.readthedocs.io/en/latest/common_usage/resume_training.html)
-- [Speed up Training](https://mmengine.readthedocs.io/en/latest/common_usage/speed_up_training.html)
-- [Save Memory on GPU](https://mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html)
+- [Resume Training](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/resume_training.html)
+- [Speed up Training](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/speed_up_training.html)
+- [Save Memory on GPU](https://onedl-mmengine.readthedocs.io/en/latest/common_usage/save_gpu_memory.html)
 
 </details>
 
 <details>
 <summary>Design</summary>
 
-- [Hook](https://mmengine.readthedocs.io/en/latest/design/hook.html)
-- [Runner](https://mmengine.readthedocs.io/en/latest/design/runner.html)
-- [Evaluation](https://mmengine.readthedocs.io/en/latest/design/evaluation.html)
-- [Visualization](https://mmengine.readthedocs.io/en/latest/design/visualization.html)
-- [Logging](https://mmengine.readthedocs.io/en/latest/design/logging.html)
-- [Infer](https://mmengine.readthedocs.io/en/latest/design/infer.html)
+- [Hook](https://onedl-mmengine.readthedocs.io/en/latest/design/hook.html)
+- [Runner](https://onedl-mmengine.readthedocs.io/en/latest/design/runner.html)
+- [Evaluation](https://onedl-mmengine.readthedocs.io/en/latest/design/evaluation.html)
+- [Visualization](https://onedl-mmengine.readthedocs.io/en/latest/design/visualization.html)
+- [Logging](https://onedl-mmengine.readthedocs.io/en/latest/design/logging.html)
+- [Infer](https://onedl-mmengine.readthedocs.io/en/latest/design/infer.html)
 
 </details>
 
 <details>
 <summary>Migration guide</summary>
 
-- [Migrate Runner from MMCV to MMEngine](https://mmengine.readthedocs.io/en/latest/migration/runner.html)
-- [Migrate Hook from MMCV to MMEngine](https://mmengine.readthedocs.io/en/latest/migration/hook.html)
-- [Migrate Model from MMCV to MMEngine](https://mmengine.readthedocs.io/en/latest/migration/model.html)
-- [Migrate Parameter Scheduler from MMCV to MMEngine](https://mmengine.readthedocs.io/en/latest/migration/param_scheduler.html)
-- [Migrate Data Transform to OpenMMLab 2.0](https://mmengine.readthedocs.io/en/latest/migration/transform.html)
+- [Migrate Runner from MMCV to MMEngine](https://onedl-mmengine.readthedocs.io/en/latest/migration/runner.html)
+- [Migrate Hook from MMCV to MMEngine](https://onedl-mmengine.readthedocs.io/en/latest/migration/hook.html)
+- [Migrate Model from MMCV to MMEngine](https://onedl-mmengine.readthedocs.io/en/latest/migration/model.html)
+- [Migrate Parameter Scheduler from MMCV to MMEngine](https://onedl-mmengine.readthedocs.io/en/latest/migration/param_scheduler.html)
+- [Migrate Data Transform to OpenMMLab 2.0](https://onedl-mmengine.readthedocs.io/en/latest/migration/transform.html)
 
 </details>
 
