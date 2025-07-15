@@ -4,7 +4,7 @@
 
 During the process of debugging code, sometimes it is necessary to train for several epochs, such as debugging the validation process or checking whether the checkpoint saving meets expectations. However, if the dataset is too large, it may take a long time to complete one epoch, in which case the length of the dataset can be set. Note that only datasets inherited from [BaseDataset](mmengine.dataset.BaseDataset) support this feature, and the usage of BaseDataset can be found in the [BaseDataset](../advanced_tutorials/basedataset.md).
 
-Take MMPretrain as an example (Refer to the [documentation](https://mmpretrain.readthedocs.io/en/latest/get_started.html) for installing MMPretrain).
+Take MMPretrain as an example (Refer to the [documentation](https://onedl-mmpretrain.readthedocs.io/en/latest/get_started.html) for installing MMPretrain).
 
 Launch training
 

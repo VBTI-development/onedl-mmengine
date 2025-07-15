@@ -1,1 +1,1 @@
-We appreciate all contributions to improve MMEngine. Please refer to [Contributing to OpenMMLab](https://mmengine.readthedocs.io/en/latest/notes/contributing.html) for more details about the contributing guideline.
+We appreciate all contributions to improve MMEngine. Please refer to [Contributing to OneDL-MMEngine](https://onedl-mmengine.readthedocs.io/en/latest/notes/contributing.html) for more details about the contributing guideline.

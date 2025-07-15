@@ -4,7 +4,7 @@ version = "0.10.8-rc.0"
 description = "Engine of OpenMMLab projects"
 readme = "README.md"
 authors = [
-    { name = "VBTI Contributors", email = "dev@vbti.nl" }
+    { name = "VBTI Contributors", email = "oss-team@vbti.nl" }
 ]
 license = { text = "Apache-2.0" }
 requires-python = ">=3.10"
@@ -54,7 +54,7 @@ docs = [
     "deepspeed",
     "myst-parser",
     "opencv-python",
-    "pytorch_sphinx_theme @ git+https://github.com/VBTI-development/onedl_sphinx_theme.git@pt",
+    "pytorch_sphinx_theme @ git+https://github.com/VBTI-development/onedl_sphinx_theme.git@chore/remove-cn-docs",
     "sphinx",
     "sphinx-copybutton",
     "sphinx-tabs",
@@ -94,7 +94,7 @@ all = [
 [project.urls]
 Homepage = "https://onedl.ai"
 Repository = "https://github.com/VBTI-development/onedl-mmengine"
-Documentation = "https://mmengine.readthedocs.io/en/latest/"
+Documentation = "https://onedl-mmengine.readthedocs.io/en/latest/"
 
 
 [tool.setuptools]
