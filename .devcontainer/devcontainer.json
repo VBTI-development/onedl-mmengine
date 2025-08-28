@@ -9,7 +9,7 @@
 		"ghcr.io/devcontainers/features/git-lfs:1": {},
 		"ghcr.io/devcontainers/features/nvidia-cuda:2": {},
 		"ghcr.io/va-h/devcontainers-features/uv:1": {}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -18,7 +18,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y libgl1 libglib2.0-0 -y"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

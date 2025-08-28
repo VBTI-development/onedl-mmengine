@@ -31,7 +31,7 @@
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```bash
-uv pip install mmengine
+uv pip install onedl-mmengine
 ```
 
 ### Install with mim
@@ -39,14 +39,14 @@ uv pip install mmengine
 [mim](https://github.com/vbti-development/mim) is a package management tool for OpenMMLab projects, which can be used to install the OpenMMLab project easily.
 
 ```bash
-pip install -U openmim
-mim install mmengine
+pip install -U onedl-mim
+mim install onedl-mmengine
 ```
 
 ### Install with pip
 
 ```bash
-pip install mmengine
+pip install onedl-mmengine
 ```
 
 ### Use docker images
@@ -57,12 +57,12 @@ pip install mmengine
    docker build -t mmengine https://github.com/vbti-development/onedl-mmengine.git#main:docker/release
    ```
 
-   More information can be referred from [mmengine/docker](https://github.com/vbti-development/onedl-mmengine/tree/main/docker).
+   More information can be referred from [onedl-mmengine/docker](https://github.com/vbti-development/onedl-mmengine/tree/main/docker).
 
 2. Run the image
 
    ```bash
-   docker run --gpus all --shm-size=8g -it mmengine
+   docker run --gpus all --shm-size=8g -it onedl-mmengine
    ```
 
 ### Build from source
@@ -72,7 +72,7 @@ pip install mmengine
 ```bash
 # if cloning speed is too slow, you can switch the source to https://gitee.com/vbti-development/onedl-mmengine.git
 git clone https://github.com/vbti-development/onedl-mmengine.git
-cd mmengine
+cd onedl-mmengine
 pip install -e . -v
 ```
 
