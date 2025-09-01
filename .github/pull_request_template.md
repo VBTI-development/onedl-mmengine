@@ -19,7 +19,7 @@ If this PR introduces a new feature, it is better to list some use cases here, a
 
 ## Checklist
 
-- \[\] Pre-commit or other linting tools are used to fix the potential lint issues.
-- \[\] The modification is covered by complete unit tests. If not, please add more unit test to ensure the correctness.
-- \[\] If the modification has potential influence on downstream projects, this PR should be tested with downstream projects, like MMDetection or MMPretrain.
-- \[\] The documentation has been modified accordingly, like docstring or example tutorials.
+- [ ] Pre-commit or other linting tools are used to fix the potential lint issues.
+- [ ] The modification is covered by complete unit tests. If not, please add more unit test to ensure the correctness.
+- [ ] If the modification has potential influence on downstream projects, this PR should be tested with downstream projects, like MMDetection or MMPretrain.
+- [ ] The documentation has been modified accordingly, like docstring or example tutorials.
