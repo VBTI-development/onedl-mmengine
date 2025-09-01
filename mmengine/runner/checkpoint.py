@@ -75,20 +75,14 @@ def _safe_torch_load(file, map_location=None, weights_only=None):
     Returns:
         The loaded checkpoint
     """
-    # Auto-detect weights_only behavior for PyTorch 2.6+
     if weights_only is None:
         if digit_version(TORCH_VERSION) >= digit_version('2.6.0'):
-            # For PyTorch 2.6+, first try with weights_only=True
-            # If that fails, fall back to weights_only=False for compatibility
             try:
-                import torch.serialization
                 allowlist = get_torch_safe_globals()
                 with torch.serialization.safe_globals(allowlist):
                     return torch.load(
                         file, map_location=map_location, weights_only=True)
             except UnpicklingError as e:
-                # If weights_only=True fails, fall back to weights_only=False
-                # This is safe for checkpoints from trusted sources
                 msg = (f'Could not safely load weights: {e}. '
                        'Falling back to weights_only=False. '
                        'In the future this might be removed.')
@@ -96,10 +90,8 @@ def _safe_torch_load(file, map_location=None, weights_only=None):
                 return torch.load(
                     file, map_location=map_location, weights_only=False)
         else:
-            # For older PyTorch versions, use default behavior
             return torch.load(file, map_location=map_location)
     else:
-        # Use explicit weights_only setting
         return torch.load(
             file, map_location=map_location, weights_only=weights_only)
 
