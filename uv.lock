@@ -2876,6 +2876,12 @@ test = [
     { name = "pytest" },
     { name = "transformers" },
 ]
+test-lite = [
+    { name = "lmdb" },
+    { name = "opencv-python" },
+    { name = "parameterized" },
+    { name = "pytest" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -2943,6 +2949,12 @@ test = [
     { name = "pydantic" },
     { name = "pytest" },
     { name = "transformers" },
+]
+test-lite = [
+    { name = "lmdb" },
+    { name = "opencv-python" },
+    { name = "parameterized" },
+    { name = "pytest" },
 ]
 
 [[package]]
