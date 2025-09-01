@@ -1,6 +1,6 @@
 [project]
 name = "onedl-mmengine"
-version = "0.10.8-rc.0"
+version = "0.10.8-rc.1"
 description = "Engine of OpenMMLab projects"
 readme = "README.md"
 authors = [
@@ -43,7 +43,7 @@ test = [
     "pytest",
     "transformers"
 ]
-test-lite =[
+test-lite = [
     "lmdb",
     "opencv-python",
     "parameterized",
@@ -130,3 +130,7 @@ name = "testpypi"
 url = "https://test.pypi.org/simple/"
 publish-url = "https://test.pypi.org/legacy/"
 explicit = true
+
+[tool.pytest.ini_options]
+norecursedirs = "tests/data"
+testpaths = "tests"

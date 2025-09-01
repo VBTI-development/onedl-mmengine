@@ -78,16 +78,12 @@ jobs:
         run: |
           uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
-          uv pip install ninja psutil
-          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main --no-build-isolation
       - name: Run unittests and generate coverage report
         run: |
           uv run coverage run --branch --source mmengine -m pytest tests/  --ignore tests/test_dist
 
   build_gpu:
     runs-on: ubuntu-22.04
-    container:
-      image: nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
     needs: build_cpu
     defaults:
       run:
@@ -97,9 +93,17 @@ jobs:
       UV_CACHE_DIR: /__w/_uv_cache # set cache to be on same disk to avoid hardlink copies.
     strategy:
       matrix:
-        python-version: ['3.10']
-        torch: ['2.4.1']
-        cuda: ['cu118']
+        include:
+          - python-version: '3.10'
+            torch: '2.4.1'
+            cuda: 'cu118'
+            image: 'nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04'
+          - python-version: '3.10'
+            torch: '2.8.0'
+            cuda: 'cu129'
+            image: 'nvidia/cuda:12.9.1-cudnn-devel-ubuntu22.04'
+    container:
+      image: ${{ matrix.image }}
     permissions:
       pull-requests: write
     steps:
@@ -137,12 +141,6 @@ jobs:
         run: |
           uv pip install -e . -v
           uv pip install -r pyproject.toml --group test
-      - name: Show disk usage
-        run: df -h
-      - name: Install mmcv
-        run: |
-          uv pip install ninja psutil
-          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main --no-build-isolation
       - name: Show disk usage
         run: df -h
       - name: Run unit tests with coverage
