@@ -43,6 +43,12 @@ test = [
     "pytest",
     "transformers"
 ]
+test-lite = [
+    "lmdb",
+    "opencv-python",
+    "parameterized",
+    "pytest",
+]
 docs = [
     "docutils",
     "deepspeed",
