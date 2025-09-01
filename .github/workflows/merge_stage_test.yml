@@ -46,8 +46,6 @@ jobs:
         run: |
           uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
-          uv pip install ninja psutil
-          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main --no-build-isolation
       - name: Run unittests and generate coverage report
         run: |
           set -e
@@ -60,7 +58,6 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.10']
-        # torch: [1.6.0, 1.7.1, 1.8.1, 1.9.1, 1.10.1, 1.11.0, 1.12.0, 1.13.0, 2.0.0, 2.1.0]
         torch: [ '2.0.0', '2.1.0', '2.3.1', '2.4.1', '2.5.1']
         include:
           - torch: '2.3.1'
@@ -90,11 +87,6 @@ jobs:
         run: |
           uv pip install -r pyproject.toml
           uv pip install -r pyproject.toml --group test
-      - name: Install mmcv
-        run: |
-          uv pip install ninja psutil
-          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main --no-build-isolation
-        if: ${{ matrix.torch == '2.4.1' }}
       - name: Run unittests
         run: |
           uv run pytest tests/  --ignore tests/test_dist
@@ -125,8 +117,6 @@ jobs:
   #     - name: Install unit tests dependencies
   #       run: |
   #         pip install -r requirements/tests.txt
-  #         pip install openmim
-  #         mim install mmcv
   #     # Distributed related unit test may randomly error in PyTorch 1.13.0
   #     - name: Run unittests
   #       run: |
@@ -155,8 +145,6 @@ jobs:
           uv pip install --torch-backend=cu118 torch==2.5.1 torchvision
           uv cache clean
           uv pip install -r pyproject.toml --group test
-          uv pip install ninja psutil
-          uv pip install git+https://github.com/VBTI-development/onedl-mmcv.git@main --no-build-isolation
       - name: Run unittests and generate coverage report
         run: |
           set -e
@@ -194,11 +182,6 @@ jobs:
   #     - name: Install unit tests dependencies
   #       run: |
   #         pip install -r requirements/tests.txt
-  #     - name: Install mmcv
-  #       run: |
-  #         pip install openmim
-  #         mim install mmcv
-  #       if: ${{ matrix.torch > '1.8.0' || matrix.torch == '1.8.0' }}
   #     # Distributed-related unit tests may fail in macOS
   #     # Skip testing setup_env since it does not work in the current CI environment # TODO
   #     - name: Run unittests and generate coverage report
@@ -236,8 +219,6 @@ jobs:
   #     - name: Install unit tests dependencies
   #       run: |
   #         pip install -r requirements/tests.txt
-  #         pip install openmim
-  #         mim install mmcv
   #     - name: Run CPU unittests
   #       run: pytest tests/  --ignore tests/test_dist
   #       if: ${{ matrix.platform == 'cpu' }}
