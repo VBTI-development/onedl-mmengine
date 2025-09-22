@@ -30,7 +30,7 @@ IndexType: Union[Any] = Union[str, slice, int, list, LongTypeTensor,
 
 
 # Modified from
-# https://github.com/open-mmlab/mmdetection/blob/master/mmdet/core/data_structures/instance_data.py # noqa
+# https://github.com/vbti-development/onedl-mmdetection/blob/master/mmdet/core/data_structures/instance_data.py # noqa
 class InstanceData(BaseDataElement):
     """Data structure for instance-level annotations or predictions.
 

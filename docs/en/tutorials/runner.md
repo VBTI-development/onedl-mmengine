@@ -14,7 +14,7 @@ The runner, as an "integrator" in MMEngine, covers all aspects of the framework 
 To build your training pipeline with a runner, there are typically two ways to get started:
 
 - Refer to runner's [API documentation](mmengine.runner.Runner) for argument-by-argument configuration
-- Make your custom modifications based on some existing configurations, such as [Getting started in 15 minutes](../get_started/15_minutes.md) and downstream repositories like [MMDet](https://github.com/open-mmlab/mmdetection)
+- Make your custom modifications based on some existing configurations, such as [Getting started in 15 minutes](../get_started/15_minutes.md) and downstream repositories like [MMDet](https://github.com/vbti-development/onedl-mmdetection)
 
 Pros and cons lie in both approaches. For the former one, beginners may be lost in a vast number of configurable arguments. For the latter one, beginners may find it hard to get a good reference, since neither an over-simplified nor an over-detailed reference is conducive to them.
 

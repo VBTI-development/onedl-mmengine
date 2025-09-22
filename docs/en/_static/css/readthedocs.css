@@ -2,10 +2,8 @@ table.colwidths-auto td {
   width: 50%
 }
 .header-logo {
-    background-image: url("../image/mmengine-logo.png");
-    background-size: 130px 40px;
-    height: 40px;
-    width: 130px;
+    background-image: url("../image/onedl-mmengine-banner.png");
+    background-size: 245px;
 }
 .two-column-table-wrapper {
     width: 50%;

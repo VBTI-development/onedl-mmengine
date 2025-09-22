@@ -48,7 +48,7 @@ weight = 'path/to/weight.pth'
 inferencer = CustomInferencer(model=cfg, weight=weight)
 ```
 
-**Building an Inferencer based on model name defined in model-index**. Take the [ATSS detector in MMDetection](https://github.com/open-mmlab/mmdetection/blob/31c84958f54287a8be2b99cbf87a6dcf12e57753/configs/atss/metafile.yml#L22) as an example, the model name is `atss_r50_fpn_1x_coco`. Since the path of weight has already been defined in the model-index, there is no need to configure the weight argument anymore.
+**Building an Inferencer based on model name defined in model-index**. Take the [ATSS detector in MMDetection](https://github.com/vbti-development/onedl-mmdetection/blob/31c84958f54287a8be2b99cbf87a6dcf12e57753/configs/atss/metafile.yml#L22) as an example, the model name is `atss_r50_fpn_1x_coco`. Since the path of weight has already been defined in the model-index, there is no need to configure the weight argument anymore.
 
 ```python
 inferencer = CustomInferencer(model='atss_r50_fpn_1x_coco')

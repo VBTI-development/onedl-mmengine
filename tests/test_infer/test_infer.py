@@ -112,7 +112,7 @@ class TestBaseInferencer(RunnerTestCase):
             register_all_modules()
             ToyInferencer(
                 'faster-rcnn_s50_fpn_syncbn-backbone+head_ms-range-1x_coco',
-                'https://download.openmmlab.com/mmdetection/v2.0/resnest/faster_rcnn_s50_fpn_syncbn-backbone%2Bhead_mstrain-range_1x_coco/faster_rcnn_s50_fpn_syncbn-backbone%2Bhead_mstrain-range_1x_coco_20200926_125502-20289c16.pth',  # noqa: E501
+                'https://mmassets.onedl.ai/mmdetection/v2.0/resnest/faster_rcnn_s50_fpn_syncbn-backbone%2Bhead_mstrain-range_1x_coco/faster_rcnn_s50_fpn_syncbn-backbone%2Bhead_mstrain-range_1x_coco_20200926_125502-20289c16.pth',  # noqa: E501
             )
 
         checkpoint = self.ckpt_path
