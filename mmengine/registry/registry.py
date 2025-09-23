@@ -286,20 +286,20 @@ class Registry:
                 try:
                     import_module(f'{scope_name}.registry')
                 except (ImportError, AttributeError, ModuleNotFoundError):
-                    if scope in MODULE2PACKAGE:
+                    if scope_name in MODULE2PACKAGE:
                         print_log(
                             f'{scope} is not installed and its '
                             'modules will not be registered. If you '
                             'want to use modules defined in '
-                            f'{scope}, Please install {scope} by '
-                            f'`pip install {MODULE2PACKAGE[scope]}.',
+                            f'{scope}, Please install {scope_name} by '
+                            f'`pip install {MODULE2PACKAGE[scope_name]}.',
                             logger='current',
                             level=logging.WARNING)
                     else:
                         print_log(
-                            f'Failed to import `{scope}.registry` '
-                            f'make sure the registry.py exists in `{scope}` '
-                            'package.',
+                            f'Failed to import `{scope_name}.registry` '
+                            'make sure the registry.py exists in '
+                            f'`{scope_name}` package.',
                             logger='current',
                             level=logging.WARNING)
                 root = self._get_root_registry()
