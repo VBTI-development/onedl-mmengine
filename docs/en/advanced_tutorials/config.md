@@ -707,7 +707,7 @@ print(cfg.model_path)
 ```
 
 ```
-https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth
+https://mmassets.onedl.ai/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth
 ```
 
 An example of `get_model`:
@@ -721,7 +721,7 @@ print(type(model))
 ```
 
 ```
-http loads checkpoint from path: https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth
+http loads checkpoint from path: https://mmassets.onedl.ai/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth
 <class 'mmdet.models.detectors.faster_rcnn.FasterRCNN'>
 ```
 

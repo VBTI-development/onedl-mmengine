@@ -26,10 +26,10 @@ class TestHTTPBackend(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.img_url = (
-            'https://download.openmmlab.com/mmengine/test-data/color.jpg')
+            'https://mmassets.onedl.ai/mmengine/test-data/color.jpg')
         cls.img_shape = (300, 400, 3)
         cls.text_url = (
-            'https://download.openmmlab.com/mmengine/test-data/filelist.txt')
+            'https://mmassets.onedl.ai/mmengine/test-data/filelist.txt')
         cls.test_data_dir = Path(__file__).parent.parent.parent / 'data'
         cls.text_path = cls.test_data_dir / 'filelist.txt'
 

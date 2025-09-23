@@ -1,4 +1,4 @@
-## Contributing to OpenMMLab
+## Contributing to VBTI-Development
 
 Welcome to the MMEngine community, we are committed to building a cutting-edge computer vision foundational library and all kinds of contributions are welcomed, including but not limited to
 
@@ -27,7 +27,7 @@ If you're not familiar with Pull Request, don't worry! The following guidance wi
 
 #### 1. Fork and clone
 
-If you are posting a pull request for the first time, you should fork the OpenMMLab repositories by clicking the **Fork** button in the top right corner of the GitHub page, and the forked repositories will appear under your GitHub profile.
+If you are posting a pull request for the first time, you should fork the VBTI repositories by clicking the **Fork** button in the top right corner of the GitHub page, and the forked repositories will appear under your GitHub profile.
 
 <img src="https://user-images.githubusercontent.com/57566630/167305749-43c7f4e9-449b-4e98-ade5-0c9276d5c9ce.png" width="1200">
 
@@ -56,7 +56,7 @@ upstream	git@github.com:vbti-development/onedl-mmengine (push)
 
 #### 2. Configure pre-commit
 
-You should configure [pre-commit](https://pre-commit.com/#intro) in the local development environment to make sure the code style matches that of OpenMMLab. **Note**: The following code should be executed under the mmengine directory.
+You should configure [pre-commit](https://pre-commit.com/#intro) in the local development environment to make sure the code style matches that of VBTI. **Note**: The following code should be executed under the mmengine directory.
 
 ```shell
 pip install -U pre-commit

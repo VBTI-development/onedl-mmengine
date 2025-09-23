@@ -573,10 +573,10 @@ class TestFileClient:
                                                 (None, 'http')])
     def test_http_backend(self, backend, prefix):
         http_backend = FileClient(backend=backend, prefix=prefix)
-        img_url = 'https://raw.githubusercontent.com/open-mmlab/mmcv/' \
-            'master/tests/data/color.jpg'
-        text_url = 'https://raw.githubusercontent.com/open-mmlab/mmcv/' \
-            'master/tests/data/filelist.txt'
+        img_url = 'https://raw.githubusercontent.com/vbti-development/' \
+            'onedl-mmcv/master/tests/data/color.jpg'
+        text_url = 'https://raw.githubusercontent.com/vbti-development/' \
+            'onedl-mmcv/master/tests/data/filelist.txt'
 
         # test `allow_symlink` attribute
         assert not http_backend.allow_symlink
@@ -653,8 +653,8 @@ class TestFileClient:
         assert FileClient.parse_uri_prefix(str(self.img_path)) is None
 
         # input path starts with https
-        img_url = 'https://raw.githubusercontent.com/open-mmlab/mmcv/' \
-            'master/tests/data/color.jpg'
+        img_url = 'https://raw.githubusercontent.com/vbti-development/'\
+            'onedl-mmcv/master/tests/data/color.jpg'
         assert FileClient.parse_uri_prefix(img_url) == 'https'
 
         # input path starts with s3

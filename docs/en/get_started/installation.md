@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-- Python 3.7+
-- PyTorch 1.6+
-- CUDA 9.2+
+- Python 3.10+
+- PyTorch 2.0+
+- CUDA 11.8+
 - GCC 5.4+
 
 ## Prepare the Environment
@@ -12,8 +12,8 @@
 1. Use conda and activate the environment:
 
    ```bash
-   conda create -n open-mmlab python=3.7 -y
-   conda activate open-mmlab
+   conda create -n onedl-mm python=3.10 -y
+   conda activate onedl-mm
    ```
 
 2. Install PyTorch
@@ -26,21 +26,21 @@
 
 ## Install MMEngine
 
-### Install with uv (recommended)
-
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
-
-```bash
-uv pip install onedl-mmengine
-```
-
-### Install with mim
+### Install with mim (recommended)
 
 [mim](https://github.com/vbti-development/mim) is a package management tool for OpenMMLab projects, which can be used to install the OpenMMLab project easily.
 
 ```bash
 pip install -U onedl-mim
 mim install onedl-mmengine
+```
+
+### Install with uv
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
+
+```bash
+uv pip install onedl-mmengine
 ```
 
 ### Install with pip

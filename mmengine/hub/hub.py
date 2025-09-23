@@ -25,7 +25,7 @@ def get_config(cfg_path: str, pretrained: bool = False) -> Config:
         >>> # Equivalent to
         >>> # cfg = Config.fromfile('/path/to/faster-rcnn_r50_fpn_1x_coco.py')
         >>> cfg.model_path
-        https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth
+        https://mmassets.onedl.ai/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth
 
     Returns:
         Config: A `Config` parsed from external package.

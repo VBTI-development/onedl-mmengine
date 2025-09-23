@@ -39,7 +39,7 @@ if __name__ == '__main__':
         ])
     # Replace the last transform with `TestTimeAug`
     cfg.test_dataloader.dataset.pipeline[-1] = flip_tta
-    cfg.load_from = 'https://download.openmmlab.com/mmclassification/v0' \
+    cfg.load_from = 'https://mmassets.onedl.ai/mmclassification/v0' \
                     '/resnet/resnet50_b16x8_cifar10_20210528-f54bfad9.pth'
     runner = Runner.from_cfg(cfg)
     runner.test()

@@ -49,8 +49,8 @@ repos:
     hooks:
       - id: pyupgrade
         args: ["--py36-plus"]
-  - repo: https://github.com/open-mmlab/pre-commit-hooks
-    rev: v0.4.0
+  - repo: https://github.com/vbti-development/pre-commit-hooks
+    rev: 0.4.2
     hooks:
       - id: check-copyright
         args: ["mmengine", "tests"]

@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 authors:
-  - name: "MMEngine Contributors"
-title: "OpenMMLab Foundational Library for Training Deep Learning Models"
-date-released: 2022-09-01
+  - name: "OneDL-MMEngine Contributors"
+title: "Foundational Library for Training Deep Learning Models"
+date-released: 2025-09-22
 url: "https://github.com/vbti-development/onedl-mmengine"
 license: Apache-2.0

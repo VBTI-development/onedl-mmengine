@@ -1,7 +1,7 @@
 # Use modules from other libraries
 
 Based on MMEngine's [Registry](registry.md) and [Config](config.md), users can build modules across libraries.
-For example, use [MMPretrain](https://github.com/open-mmlab/mmpretrain)'s backbones in [MMDetection](https://github.com/open-mmlab/mmdetection), or [MMDetection](https://github.com/open-mmlab/mmdetection)'s data transforms in [MMRotate](https://github.com/open-mmlab/mmrotate), or using [MMDetection](https://github.com/open-mmlab/mmdetection)'s detectors in [MMTracking](https://github.com/open-mmlab/mmtracking).
+For example, use [MMPretrain](https://github.com/vbti-development/onedl-mmpretrain)'s backbones in [MMDetection](https://github.com/vbti-development/onedl-mmdetection), or [MMDetection](https://github.com/vbti-development/onedl-mmdetection)'s data transforms in [MMRotate](https://github.com/vbti-development/onedl-mmrotate), or using [MMDetection](https://github.com/vbti-development/onedl-mmdetection)'s detectors in [MMTracking](https://github.com/vbti-development/onedl-mmtracking).
 
 Modules registered in the same registry tree can be called across libraries by adding the **package name prefix** before the module's type in the config. Here are some common examples:
 
@@ -30,7 +30,7 @@ model = dict(
       init_cfg=dict(
           type='Pretrained',
           checkpoint=
-          'https://download.openmmlab.com/mmclassification/v0/convnext/downstream/convnext-tiny_3rdparty_32xb128-noema_in1k_20220301-795e9634.pth',
+          'https://mmassets.onedl.ai/mmclassification/v0/convnext/downstream/convnext-tiny_3rdparty_32xb128-noema_in1k_20220301-795e9634.pth',
           prefix='backbone.')),
   neck=dict(...),
   rpn_head=dict(...))

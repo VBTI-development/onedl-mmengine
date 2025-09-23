@@ -20,7 +20,7 @@ Here is part of the training log, where `3125` represents the number of iteratio
 02/20 14:43:14 - mmengine - INFO - Epoch(train)   [1][ 300/3125]  lr: 1.0000e-01  eta: 3:46:27  time: 0.0146  data_time: 0.0003  memory: 214  loss: 1.9858
 ```
 
-Turn off the training and set `indices` as `5000` in the `dataset` field in [configs/base/datasets/cifar10_bs16.py](https://github.com/open-mmlab/mmpretrain/blob/main/configs/_base_/datasets/cifar100_bs16.py).
+Turn off the training and set `indices` as `5000` in the `dataset` field in [configs/base/datasets/cifar10_bs16.py](https://github.com/vbti-development/onedl-mmpretrain/blob/main/configs/_base_/datasets/cifar100_bs16.py).
 
 ```python
 train_dataloader = dict(
