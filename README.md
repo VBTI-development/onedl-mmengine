@@ -3,8 +3,9 @@
     <!-- User prefers dark mode: -->
   <source srcset="https://raw.githubusercontent.com/vbti-development/onedl-mmengine/main/docs/en/_static/image/onedl-mmengine-banner-dark.png"  media="(prefers-color-scheme: dark)"/>
 
-<img src="https://raw.githubusercontent.com/vbti-development/onedl-mmengine/main/docs/en/_static/image/onedl-mmengine-banner.png" alt="OneDL-Engine logo" height="200"/>
-</picture>
+  <img src="https://raw.githubusercontent.com/vbti-development/onedl-mmengine/main/docs/en/_static/image/onedl-mmengine-banner.png" alt="OneDL-Engine logo" height="200"/>
+  </picture>
+  
   <div>&nbsp;</div>
   <div align="center">
     <a href="https://vbti.ai">
@@ -34,7 +35,7 @@
 [📘Documentation](https://onedl-mmengine.readthedocs.io/en/latest/) |
 [🤔Reporting Issues](https://github.com/vbti-development/onedl-mmengine/issues/new/choose)
 
-</div>
+</div></div>
 
 ## What's New
 
