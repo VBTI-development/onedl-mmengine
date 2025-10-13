@@ -1,6 +1,6 @@
 ## Contributing to VBTI-Development
 
-Welcome to the MMEngine community, we are committed to building a cutting-edge computer vision foundational library and all kinds of contributions are welcomed, including but not limited to
+Welcome to the OneDL MMEngine community, we are committed to building a cutting-edge computer vision foundational library and all kinds of contributions are welcomed, including but not limited to
 
 **Fix bug**
 

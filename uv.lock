@@ -2802,7 +2802,7 @@ wheels = [
 
 [[package]]
 name = "onedl-mmengine"
-version = "0.10.8rc1"
+version = "0.10.8"
 source = { editable = "." }
 dependencies = [
     { name = "addict" },

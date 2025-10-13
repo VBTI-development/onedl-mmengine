@@ -1,10 +1,11 @@
 [project]
 name = "onedl-mmengine"
-version = "0.10.8-rc.1"
+version = "0.10.8"
 description = "Engine of VBTI projects"
 readme = "README.md"
 authors = [
-    { name = "VBTI Contributors", email = "oss-team@vbti.nl" }
+    { name = "VBTI Contributors", email = "oss-team@vbti.nl" },
+    { name = "OneDL MMEngine Contributors" }
 ]
 license = { text = "Apache-2.0" }
 requires-python = ">=3.10"
