@@ -177,6 +177,9 @@ def _is_builtin_module(module_name: str) -> bool:
     origin_path = getattr(spec, 'origin', None)
     if origin_path is None:
         return False
+    # Handle frozen modules (e.g., os module in some Python distributions)
+    if origin_path == 'frozen':
+        return True
     origin_path = osp.abspath(origin_path)
     if ('site-package' in origin_path or 'dist-package' in origin_path
             or not origin_path.startswith(
