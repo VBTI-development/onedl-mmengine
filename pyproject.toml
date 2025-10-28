@@ -31,7 +31,7 @@ dependencies = [
 
 [dependency-groups]
 test = [
-    "aim<=3.17.5; sys_platform != 'win32'",
+    "aim; sys_platform != 'win32'",
     "bitsandbytes",
     "clearml",
     "coverage",
@@ -79,7 +79,7 @@ all = [
     "termcolor",
     "yapf",
     "regex; sys_platform == 'win32'",
-    "aim<=3.17.5; sys_platform != 'win32'",
+    "aim; sys_platform != 'win32'",
     "bitsandbytes",
     "clearml",
     "coverage",
