@@ -58,8 +58,6 @@ try:
     # without mock.
     import petrel_client  # noqa: F401
 except ImportError:
-    sys.modules['petrel_client'] = MagicMock()
-    sys.modules['petrel_client.client'] = MagicMock()
 
     class MockPetrelClient:
 
@@ -95,16 +93,36 @@ except ImportError:
                 elif osp.isdir(entry.path):
                     yield entry.name + '/'
 
+    # Create mock modules that properly expose the MockPetrelClient
+    mock_petrel_client = MagicMock()
+    mock_client_module = MagicMock()
+    mock_client_module.Client = MockPetrelClient
+    mock_petrel_client.client = mock_client_module
+
+    sys.modules['petrel_client'] = mock_petrel_client
+    sys.modules['petrel_client.client'] = mock_client_module
+
     @contextmanager
     def delete_and_reset_method(obj, method):
-        method_obj = deepcopy(getattr(type(obj), method))
-        try:
-            delattr(type(obj), method)
-            yield
-        finally:
-            setattr(type(obj), method, method_obj)
+        # Handle MagicMock objects differently in Python 3.12+
+        if hasattr(obj, '_mock_methods') or str(
+                type(obj).__name__) == 'MagicMock':
+            # For MagicMock objects, work with the instance directly
+            method_obj = deepcopy(getattr(obj, method))
+            try:
+                delattr(obj, method)
+                yield
+            finally:
+                setattr(obj, method, method_obj)
+        else:
+            # Original behavior for non-mock objects
+            method_obj = deepcopy(getattr(type(obj), method))
+            try:
+                delattr(type(obj), method)
+                yield
+            finally:
+                setattr(type(obj), method, method_obj)
 
-    @patch('petrel_client.client.Client', MockPetrelClient)
     class TestPetrelBackend(TestCase):
 
         @classmethod
