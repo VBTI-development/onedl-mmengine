@@ -57,7 +57,7 @@ try:
     # If petrel_client is imported successfully, we can test PetrelBackend
     # without mock.
     import petrel_client  # noqa: F401
-except ImportError:
+except (ImportError, ModuleNotFoundError):
 
     class MockPetrelClient:
 
