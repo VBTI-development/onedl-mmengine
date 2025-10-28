@@ -98,7 +98,7 @@ jobs:
             torch: '2.4.1'
             cuda: 'cu118'
             image: 'nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04'
-          - python-version: '3.10'
+          - python-version: '3.12'
             torch: '2.8.0'
             cuda: 'cu129'
             image: 'nvidia/cuda:12.9.1-cudnn-runtime-ubuntu22.04'
