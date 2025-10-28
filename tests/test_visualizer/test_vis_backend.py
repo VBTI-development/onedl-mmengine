@@ -462,37 +462,36 @@ class TestDVCLiveVisBackend:
     reason='Aim does not support Windows for now.')
 class TestAimVisBackend:
 
+    @classmethod
+    def setup_class(cls):
+        """Setup AimVisBackend instance once for all tests in this class."""
+        cls.aim_vis_backend = AimVisBackend()
+
     def test_init(self):
         AimVisBackend()
         VISBACKENDS.build(dict(type='AimVisBackend'))
 
     def test_experiment(self):
-        aim_vis_backend = AimVisBackend()
-        assert aim_vis_backend.experiment == aim_vis_backend._aim_run
+        assert self.aim_vis_backend.experiment == self.aim_vis_backend._aim_run
 
     def test_add_config(self):
         cfg = Config(dict(a=1, b=dict(b1=[0, 1])))
-        aim_vis_backend = AimVisBackend()
-        aim_vis_backend.add_config(cfg)
+        self.aim_vis_backend.add_config(cfg)
 
     def test_add_image(self):
         image = np.random.randint(0, 256, size=(10, 10, 3)).astype(np.uint8)
-        aim_vis_backend = AimVisBackend()
-        aim_vis_backend.add_image('img', image)
-        aim_vis_backend.add_image('img', image, step=1)
+        self.aim_vis_backend.add_image('img', image)
+        self.aim_vis_backend.add_image('img', image, step=1)
 
     def test_add_scalar(self):
-        aim_vis_backend = AimVisBackend()
-        aim_vis_backend.add_scalar('map', 0.9)
-        aim_vis_backend.add_scalar('map', 0.9, step=1)
-        aim_vis_backend.add_scalar('map', 0.95, step=2)
+        self.aim_vis_backend.add_scalar('map', 0.9)
+        self.aim_vis_backend.add_scalar('map', 0.9, step=1)
+        self.aim_vis_backend.add_scalar('map', 0.95, step=2)
 
     def test_add_scalars(self):
-        aim_vis_backend = AimVisBackend()
         input_dict = {'map': 0.7, 'acc': 0.9}
-        aim_vis_backend.add_scalars(input_dict)
+        self.aim_vis_backend.add_scalars(input_dict)
 
     def test_close(self):
-        aim_vis_backend = AimVisBackend()
-        aim_vis_backend._init_env()
-        aim_vis_backend.close()
+        self.aim_vis_backend._init_env()
+        self.aim_vis_backend.close()
