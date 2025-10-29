@@ -48,7 +48,7 @@ jobs:
           uv pip install -r pyproject.toml --group test-lite
       - name: Run unit tests with coverage
         run: |
-          uv run pytest tests/test_config tests/test_registry tests/test_fileio tests/test_logging tests/test_utils --ignore=tests/test_utils/test_dl_utils
+          uv run pytest -v tests/test_config tests/test_registry tests/test_fileio tests/test_logging tests/test_utils --ignore=tests/test_utils/test_dl_utils
 
   build_cpu:
     runs-on: ubuntu-22.04
