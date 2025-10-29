@@ -86,7 +86,6 @@ class MockPetrelClient:
         pass
 
     def list(self, dir_path):
-        print('Using mock list')
         for entry in os.scandir(dir_path):
             if entry.name.startswith('.'):
                 continue

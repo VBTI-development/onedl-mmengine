@@ -16,8 +16,6 @@ from mmengine.fileio import BaseStorageBackend, FileClient
 from mmengine.utils import has_method
 
 sys.modules['ceph'] = MagicMock()
-sys.modules['petrel_client'] = MagicMock()
-sys.modules['petrel_client.client'] = MagicMock()
 sys.modules['mc'] = MagicMock()
 
 
@@ -136,6 +134,24 @@ class TestFileClient:
         cls.img_path = cls.test_data_dir / 'color.jpg'
         cls.img_shape = (300, 400, 3)
         cls.text_path = cls.test_data_dir / 'filelist.txt'
+
+    def setup_method(self):
+        # Mock petrel_client for each test
+        self.mock_petrel_client = MagicMock()
+        self.mock_client_module = MagicMock()
+        self.mock_client_module.Client = MockPetrelClient
+        self.mock_petrel_client.client = self.mock_client_module
+
+        self.patcher_petrel = patch.dict(
+            'sys.modules', {
+                'petrel_client': self.mock_petrel_client,
+                'petrel_client.client': self.mock_client_module
+            })
+        self.patcher_petrel.start()
+
+    def teardown_method(self):
+        # Clean up the mock
+        self.patcher_petrel.stop()
 
     def test_error(self):
         with pytest.raises(ValueError):
@@ -289,7 +305,6 @@ class TestFileClient:
                         osp.join('dir2', 'img.jpg'), 'text1.txt', 'text2.txt'
                     }
 
-    @patch('petrel_client.client.Client', MockPetrelClient)
     @pytest.mark.parametrize('backend,prefix', [('petrel', None),
                                                 (None, 's3')])
     def test_petrel_backend(self, backend, prefix):
