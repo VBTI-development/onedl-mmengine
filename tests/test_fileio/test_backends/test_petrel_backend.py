@@ -87,6 +87,7 @@ except (ImportError, ModuleNotFoundError):
             pass
 
         def list(self, dir_path):
+            print('Using mock list')
             for entry in os.scandir(dir_path):
                 print(f"{entry=}")
                 if entry.name.startswith('.'):
