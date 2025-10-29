@@ -88,9 +88,12 @@ except (ImportError, ModuleNotFoundError):
 
         def list(self, dir_path):
             for entry in os.scandir(dir_path):
-                if not entry.name.startswith('.') and entry.is_file():
+                print(f"{entry=}")
+                if entry.name.startswith('.'):
+                    continue
+                if entry.is_file():
                     yield entry.name
-                elif osp.isdir(entry.path):
+                elif entry.is_dir():
                     yield entry.name + '/'
 
     # Create mock modules that properly expose the MockPetrelClient
