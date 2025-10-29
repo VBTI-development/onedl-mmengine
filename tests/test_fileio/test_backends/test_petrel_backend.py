@@ -104,12 +104,21 @@ except (ImportError, ModuleNotFoundError):
 
     @contextmanager
     def delete_and_reset_method(obj, method):
-        method_obj = deepcopy(getattr(type(obj), method))
-        try:
-            delattr(type(obj), method)
-            yield
-        finally:
-            setattr(type(obj), method, method_obj)
+        if hasattr(obj, '_mock_methods') or str(
+                type(obj).__name__) == 'MagicMock':
+            method_obj = deepcopy(getattr(obj, method))
+            try:
+                delattr(obj, method)
+                yield
+            finally:
+                setattr(obj, method, method_obj)
+        else:
+            method_obj = deepcopy(getattr(type(obj), method))
+            try:
+                delattr(type(obj), method)
+                yield
+            finally:
+                setattr(type(obj), method, method_obj)
 
     class TestPetrelBackend(TestCase):
 
