@@ -65,3 +65,8 @@ repos:
               | ^docs
           )
         additional_dependencies: ["types-setuptools", "types-requests", "types-PyYAML"]
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.9.5
+    hooks:
+      - id: uv-lock

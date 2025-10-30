@@ -2802,7 +2802,7 @@ wheels = [
 
 [[package]]
 name = "onedl-mmengine"
-version = "0.10.8"
+version = "0.10.9"
 source = { editable = "." }
 dependencies = [
     { name = "addict" },
@@ -2887,7 +2887,7 @@ test-lite = [
 requires-dist = [
     { name = "addict" },
     { name = "addict", marker = "extra == 'all'" },
-    { name = "aim", marker = "sys_platform != 'win32' and extra == 'all'", specifier = "<=3.17.5" },
+    { name = "aim", marker = "sys_platform != 'win32' and extra == 'all'" },
     { name = "bitsandbytes", marker = "extra == 'all'" },
     { name = "clearml", marker = "extra == 'all'" },
     { name = "coverage", marker = "extra == 'all'" },
@@ -2935,7 +2935,7 @@ docs = [
     { name = "urllib3" },
 ]
 test = [
-    { name = "aim", marker = "sys_platform != 'win32'", specifier = "<=3.17.5" },
+    { name = "aim", marker = "sys_platform != 'win32'" },
     { name = "bitsandbytes" },
     { name = "clearml" },
     { name = "coverage" },

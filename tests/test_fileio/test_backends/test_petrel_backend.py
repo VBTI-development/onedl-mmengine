@@ -1,7 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import os
 import os.path as osp
-import sys
 import tempfile
 from contextlib import contextmanager
 from copy import deepcopy
@@ -49,54 +48,63 @@ def build_temporary_directory():
         yield tmp_dir
 
 
+# Check if petrel_client is available
+PETREL_CLIENT_AVAILABLE = False
 try:
-    # Other unit tests may mock these modules so we need to pop them first.
-    sys.modules.pop('petrel_client', None)
-    sys.modules.pop('petrel_client.client', None)
-
-    # If petrel_client is imported successfully, we can test PetrelBackend
-    # without mock.
     import petrel_client  # noqa: F401
-except ImportError:
-    sys.modules['petrel_client'] = MagicMock()
-    sys.modules['petrel_client.client'] = MagicMock()
+    PETREL_CLIENT_AVAILABLE = True
+except (ImportError, ModuleNotFoundError):
+    PETREL_CLIENT_AVAILABLE = False
 
-    class MockPetrelClient:
 
-        def __init__(self,
-                     enable_mc=True,
-                     enable_multi_cluster=False,
-                     conf_path=None):
-            self.enable_mc = enable_mc
-            self.enable_multi_cluster = enable_multi_cluster
-            self.conf_path = conf_path
+class MockPetrelClient:
+    """Mock PetrelClient for testing when petrel_client is not available."""
 
-        def Get(self, filepath):
-            with open(filepath, 'rb') as f:
-                content = f.read()
-            return content
+    def __init__(self,
+                 enable_mc=True,
+                 enable_multi_cluster=False,
+                 conf_path=None):
+        self.enable_mc = enable_mc
+        self.enable_multi_cluster = enable_multi_cluster
+        self.conf_path = conf_path
 
-        def put(self):
-            pass
+    def Get(self, filepath):
+        with open(filepath, 'rb') as f:
+            content = f.read()
+        return content
 
-        def delete(self):
-            pass
+    def put(self, filepath, content):
+        pass
 
-        def contains(self):
-            pass
+    def delete(self, filepath):
+        pass
 
-        def isdir(self):
-            pass
+    def contains(self, filepath):
+        pass
 
-        def list(self, dir_path):
-            for entry in os.scandir(dir_path):
-                if not entry.name.startswith('.') and entry.is_file():
-                    yield entry.name
-                elif osp.isdir(entry.path):
-                    yield entry.name + '/'
+    def isdir(self, filepath):
+        pass
 
-    @contextmanager
-    def delete_and_reset_method(obj, method):
+    def list(self, dir_path):
+        for entry in os.scandir(dir_path):
+            if entry.name.startswith('.'):
+                continue
+            if entry.is_file():
+                yield entry.name
+            elif entry.is_dir():
+                yield entry.name + '/'
+
+
+@contextmanager
+def delete_and_reset_method(obj, method):
+    if hasattr(obj, '_mock_methods') or str(type(obj).__name__) == 'MagicMock':
+        method_obj = deepcopy(getattr(obj, method))
+        try:
+            delattr(obj, method)
+            yield
+        finally:
+            setattr(obj, method, method_obj)
+    else:
         method_obj = deepcopy(getattr(type(obj), method))
         try:
             delattr(type(obj), method)
@@ -104,7 +112,11 @@ except ImportError:
         finally:
             setattr(type(obj), method, method_obj)
 
-    @patch('petrel_client.client.Client', MockPetrelClient)
+
+if not PETREL_CLIENT_AVAILABLE:
+    # Define the test class that uses mocking when
+    # petrel_client is not available
+
     class TestPetrelBackend(TestCase):
 
         @classmethod
@@ -117,6 +129,24 @@ except ImportError:
             cls.petrel_path = f'{cls.petrel_dir}/test.jpg'
             cls.expected_dir = 's3://user/data'
             cls.expected_path = f'{cls.expected_dir}/test.jpg'
+
+        def setUp(self):
+            # Mock petrel_client for each test
+            self.mock_petrel_client = MagicMock()
+            self.mock_client_module = MagicMock()
+            self.mock_client_module.Client = MockPetrelClient
+            self.mock_petrel_client.client = self.mock_client_module
+
+            self.patcher_petrel = patch.dict(
+                'sys.modules', {
+                    'petrel_client': self.mock_petrel_client,
+                    'petrel_client.client': self.mock_client_module
+                })
+            self.patcher_petrel.start()
+
+        def tearDown(self):
+            # Clean up the mock
+            self.patcher_petrel.stop()
 
         def test_name(self):
             backend = PetrelBackend()
@@ -563,6 +593,7 @@ except ImportError:
             pass
 
 else:
+    # Define the test class that uses real petrel_client when available
 
     class TestPetrelBackend(TestCase):  # type: ignore
 
