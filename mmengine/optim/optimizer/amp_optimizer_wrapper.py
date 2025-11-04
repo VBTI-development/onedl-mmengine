@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from contextlib import contextmanager
-from typing import Union
 from functools import partial
+from typing import Union
 
 import torch
 import torch.nn as nn
