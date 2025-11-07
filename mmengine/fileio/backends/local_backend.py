@@ -236,7 +236,7 @@ class LocalBackend(BaseStorageBackend):
             >>> backend.copyfile(src, dst)
             '/path1/of/dir/file'
         """
-        return shutil.copy(src, dst)
+        return shutil.copy(str(src), str(dst))
 
     def copytree(
         self,
@@ -268,7 +268,7 @@ class LocalBackend(BaseStorageBackend):
             >>> backend.copytree(src, dst)
             '/path/of/dir2'
         """
-        return shutil.copytree(src, dst)
+        return shutil.copytree(str(src), str(dst))
 
     def copyfile_from_local(
         self,
