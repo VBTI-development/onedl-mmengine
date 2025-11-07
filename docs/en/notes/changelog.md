@@ -117,7 +117,7 @@ A total of 3 developers contributed to this release. Thanks [@HIT-cwh](https://g
 
 ### Contributors
 
-A total of 9 developers contributed to this release. Thanks [@POI-WX](https://github.com/POI-WX),  [@whlook](https://github.com/whlook), [@jonbakerfish](https://github.com/jonbakerfish), [@LZHgrla](https://github.com/LZHgrla), [@Ben-Louis](https://github.com/Ben-Louis), [@YiyaoYang1](https://github.com/YiyaoYang1), [@fanqiNO1](https://github.com/fanqiNO1), [@HAOCHENYE](https://github.com/HAOCHENYE), [@zhouzaida](https://github.com/zhouzaida)
+A total of 9 developers contributed to this release. Thanks [@POI-WX](https://github.com/POI-WX), [@whlook](https://github.com/whlook), [@jonbakerfish](https://github.com/jonbakerfish), [@LZHgrla](https://github.com/LZHgrla), [@Ben-Louis](https://github.com/Ben-Louis), [@YiyaoYang1](https://github.com/YiyaoYang1), [@fanqiNO1](https://github.com/fanqiNO1), [@HAOCHENYE](https://github.com/HAOCHENYE), [@zhouzaida](https://github.com/zhouzaida)
 
 ## v0.9.0 (10/10/2023)
 
@@ -345,7 +345,7 @@ A total of 9 developers contributed to this release. Thanks [@evdcush](https://g
 
 ### Contributors
 
-A total of 19 developers contributed to this release. Thanks [@Hongru-Xiao](https://github.com/Hongru-Xiao)  [@i-aki-y](https://github.com/i-aki-y)  [@Bomsw](https://github.com/Bomsw)  [@KickCellarDoor](https://github.com/KickCellarDoor)  [@zhouzaida](https://github.com/zhouzaida)  [@YQisme](https://github.com/YQisme)  [@gachiemchiep](https://github.com/gachiemchiep)  [@CescMessi](https://github.com/CescMessi)  [@W-ZN](https://github.com/W-ZN)  [@Ginray](https://github.com/Ginray)  [@adrianjoshua-strutt](https://github.com/adrianjoshua-strutt)  [@CokeDong](https://github.com/CokeDong)  [@xin-li-67](https://github.com/xin-li-67)  [@Xiangxu-0103](https://github.com/Xiangxu-0103)  [@HAOCHENYE](https://github.com/HAOCHENYE)  [@Shiyang980713](https://github.com/Shiyang980713)  [@TankNee](https://github.com/TankNee)  [@zimonitrome](https://github.com/zimonitrome)  [@gy-7](https://github.com/gy-7)
+A total of 19 developers contributed to this release. Thanks [@Hongru-Xiao](https://github.com/Hongru-Xiao) [@i-aki-y](https://github.com/i-aki-y) [@Bomsw](https://github.com/Bomsw) [@KickCellarDoor](https://github.com/KickCellarDoor) [@zhouzaida](https://github.com/zhouzaida) [@YQisme](https://github.com/YQisme) [@gachiemchiep](https://github.com/gachiemchiep) [@CescMessi](https://github.com/CescMessi) [@W-ZN](https://github.com/W-ZN) [@Ginray](https://github.com/Ginray) [@adrianjoshua-strutt](https://github.com/adrianjoshua-strutt) [@CokeDong](https://github.com/CokeDong) [@xin-li-67](https://github.com/xin-li-67) [@Xiangxu-0103](https://github.com/Xiangxu-0103) [@HAOCHENYE](https://github.com/HAOCHENYE) [@Shiyang980713](https://github.com/Shiyang980713) [@TankNee](https://github.com/TankNee) [@zimonitrome](https://github.com/zimonitrome) [@gy-7](https://github.com/gy-7)
 
 ## v0.7.3 (04/28/2023)
 
@@ -369,7 +369,7 @@ A total of 19 developers contributed to this release. Thanks [@Hongru-Xiao](http
 - Enhance the support for MLU device by [@josh6688](https://github.com/josh6688) in https://github.com/open-mmlab/mmengine/pull/1075
 - Support configuring synchronization directory for BaseMetric by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/1074
 - Support accepting multiple `input_shape` for `get_model_complexity_info` by [@sjiang95](https://github.com/sjiang95) in https://github.com/open-mmlab/mmengine/pull/1065
-- Enhance docstring and error catching in `MessageHub`  by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/1098
+- Enhance docstring and error catching in `MessageHub` by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/1098
 - Enhance the efficiency of Visualizer.show by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/1015
 - Update repo list by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/1108
 - Enhance error message during custom import by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/1102
@@ -599,7 +599,7 @@ A total of 8 developers contributed to this release. Thanks [@LEFTeyex](https://
 - `hub.get_model` fails on some MMCls models by [@C1rN09](https://github.com/C1rN09) in https://github.com/open-mmlab/mmengine/pull/784
 - Fix `BaseModel.to` and `BaseDataPreprocessor.to` to make them consistent with `torch.nn.Module` by [@C1rN09](https://github.com/C1rN09) in https://github.com/open-mmlab/mmengine/pull/783
 - Fix creating a new logger at PretrainedInit by [@xiexinch](https://github.com/xiexinch) in https://github.com/open-mmlab/mmengine/pull/791
-- Fix `ZeroRedundancyOptimizer` ambiguous error with param groups when PyTorch \< 1.12.0 by [@C1rN09](https://github.com/C1rN09) in https://github.com/open-mmlab/mmengine/pull/818
+- Fix `ZeroRedundancyOptimizer` ambiguous error with param groups when PyTorch < 1.12.0 by [@C1rN09](https://github.com/C1rN09) in https://github.com/open-mmlab/mmengine/pull/818
 - Fix MessageHub set resumed key repeatedly by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/839
 - Add `progress` argument to `load_from_http` by [@austinmw](https://github.com/austinmw) in https://github.com/open-mmlab/mmengine/pull/770
 - Ensure metrics is not empty when saving best checkpoint by [@zhouzaida](https://github.com/zhouzaida) in https://github.com/open-mmlab/mmengine/pull/849
@@ -613,10 +613,10 @@ A total of 8 developers contributed to this release. Thanks [@LEFTeyex](https://
 - Fix typos in EN `contributing.md` by [@RangeKing](https://github.com/RangeKing) in https://github.com/open-mmlab/mmengine/pull/792
 - Translate data transform docs. by [@mzr1996](https://github.com/mzr1996) in https://github.com/open-mmlab/mmengine/pull/737
 - Replace markdown table with html table by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/800
-- Fix wrong example in `Visualizer.draw_polygons`  by [@lyviva](https://github.com/lyviva) in https://github.com/open-mmlab/mmengine/pull/798
+- Fix wrong example in `Visualizer.draw_polygons` by [@lyviva](https://github.com/lyviva) in https://github.com/open-mmlab/mmengine/pull/798
 - Fix docstring format and rescale the images by [@zhouzaida](https://github.com/zhouzaida) in https://github.com/open-mmlab/mmengine/pull/802
 - Fix failed link in registry by [@zhouzaida](https://github.com/zhouzaida) in https://github.com/open-mmlab/mmengine/pull/811
-- Fix typos  by [@shanmo](https://github.com/shanmo) in https://github.com/open-mmlab/mmengine/pull/814
+- Fix typos by [@shanmo](https://github.com/shanmo) in https://github.com/open-mmlab/mmengine/pull/814
 - Fix wrong links and typos in docs by [@shanmo](https://github.com/shanmo) in https://github.com/open-mmlab/mmengine/pull/815
 - Translate `save_gpu_memory.md` by [@xin-li-67](https://github.com/xin-li-67) in https://github.com/open-mmlab/mmengine/pull/803
 - Translate the documentation of hook design by [@zhouzaida](https://github.com/zhouzaida) in https://github.com/open-mmlab/mmengine/pull/780
@@ -691,7 +691,7 @@ A total of 16 developers contributed to this release. Thanks [@BayMaxBHL](https:
 - Add documents for `clip_grad`, and support clip grad by value. by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/513
 - Add ROCm info when collecting env by [@zhouzaida](https://github.com/zhouzaida) in https://github.com/open-mmlab/mmengine/pull/633
 - Add a function to mark the deprecated function. by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/609
-- Call `register_all_modules`  in `Registry.get()` by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/541
+- Call `register_all_modules` in `Registry.get()` by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/541
 - Deprecate `_save_to_state_dict` implemented in mmengine by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/610
 - Add `ignore_keys` in ConcatDataset by [@BIGWangYuDong](https://github.com/BIGWangYuDong) in https://github.com/open-mmlab/mmengine/pull/556
 
@@ -768,7 +768,7 @@ A total of 16 developers contributed to this release. Thanks [@BayMaxBHL](https:
 - Fix uploading image in wandb backend [@okotaku](https://github.com/okotaku) in https://github.com/open-mmlab/mmengine/pull/510
 - Fix loading state dictionary in `EMAHook` by [@okotaku](https://github.com/okotaku) in https://github.com/open-mmlab/mmengine/pull/507
 - Fix circle import in `EMAHook` by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/523
-- Fix unit test could fail caused by `MultiProcessTestCase`  by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/535
+- Fix unit test could fail caused by `MultiProcessTestCase` by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/535
 - Remove unnecessary "if statement" in `Registry` by [@MambaWong](https://github.com/MambaWong) in https://github.com/open-mmlab/mmengine/pull/536
 - Fix `_save_to_state_dict` by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/542
 - Support comparing NumPy array dataset meta in `Runner.resume` by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/511

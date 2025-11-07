@@ -20,23 +20,23 @@ Each hook has a corresponding priority. At each mount point, hooks with higher p
 
 **default hooks**
 
-|                    Name                     |                                                       Function                                                       |     Priority      |
+| Name | Function | Priority |
 | :-----------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :---------------: |
-|     [RuntimeInfoHook](#runtimeinfohook)     |                                     update runtime information into message hub                                      |  VERY_HIGH (10)   |
-|       [IterTimerHook](#itertimerhook)       |                               Update the time spent during iteration into message hub                                |    NORMAL (50)    |
-| [DistSamplerSeedHook](#distsamplerseedhook) |                                     Ensure distributed Sampler shuffle is active                                     |    NORMAL (50)    |
-|          [LoggerHook](#loggerhook)          | Collect logs from different components of `Runner` and write them to terminal, JSON file, tensorboard and wandb .etc | BELOW_NORMAL (60) |
-|  [ParamSchedulerHook](#paramschedulerhook)  |                                      update some hyper-parameters of optimizer                                       |     LOW (70)      |
-|      [CheckpointHook](#checkpointhook)      |                                            Save checkpoints periodically                                             |   VERY_LOW (90)   |
+| [RuntimeInfoHook](#runtimeinfohook) | update runtime information into message hub | VERY_HIGH (10) |
+| [IterTimerHook](#itertimerhook) | Update the time spent during iteration into message hub | NORMAL (50) |
+| [DistSamplerSeedHook](#distsamplerseedhook) | Ensure distributed Sampler shuffle is active | NORMAL (50) |
+| [LoggerHook](#loggerhook) | Collect logs from different components of `Runner` and write them to terminal, JSON file, tensorboard and wandb .etc | BELOW_NORMAL (60) |
+| [ParamSchedulerHook](#paramschedulerhook) | update some hyper-parameters of optimizer | LOW (70) |
+| [CheckpointHook](#checkpointhook) | Save checkpoints periodically | VERY_LOW (90) |
 
 **custom hooks**
 
-|                Name                 |                                 Function                                 |   Priority    |
+| Name | Function | Priority |
 | :---------------------------------: | :----------------------------------------------------------------------: | :-----------: |
-|         [EMAHook](#emahook)         |   Apply Exponential Moving Average (EMA) on the model during training    |  NORMAL (50)  |
-|  [EmptyCacheHook](#emptycachehook)  | Releases all unoccupied cached GPU memory during the process of training |  NORMAL (50)  |
-| [SyncBuffersHook](#syncbuffershook) |            Synchronize model buffers at the end of each epoch            |  NORMAL (50)  |
-|    [ProfilerHook](#profilerhook)    |    Analyze the execution time and GPU memory usage of model operators    | VERY_LOW (90) |
+| [EMAHook](#emahook) | Apply Exponential Moving Average (EMA) on the model during training | NORMAL (50) |
+| [EmptyCacheHook](#emptycachehook) | Releases all unoccupied cached GPU memory during the process of training | NORMAL (50) |
+| [SyncBuffersHook](#syncbuffershook) | Synchronize model buffers at the end of each epoch | NORMAL (50) |
+| [ProfilerHook](#profilerhook) | Analyze the execution time and GPU memory usage of model operators | VERY_LOW (90) |
 
 ```{note}
 It is not recommended to modify the priority of the default hooks, as hooks with lower priority may depend on hooks with higher priority. For example, `CheckpointHook` needs to have a lower priority than ParamSchedulerHook so that the saved optimizer state is correct. Also, the priority of custom hooks defaults to `NORMAL (50)`.

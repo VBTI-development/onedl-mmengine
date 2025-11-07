@@ -75,7 +75,7 @@ pre-commit run --all-files
 
 If the installation process is interrupted, you can repeatedly run `pre-commit run ... ` to continue the installation.
 
-If the code does not conform to the code style specification, pre-commit will raise a warning and  fixes some of the errors automatically.
+If the code does not conform to the code style specification, pre-commit will raise a warning and fixes some of the errors automatically.
 
 <img src="https://user-images.githubusercontent.com/57566630/202369176-67642454-0025-4023-a095-263529107aa3.png" width="1200">
 
@@ -234,7 +234,7 @@ The config for a pre-commit hook is stored in [.pre-commit-config](./.pre-commit
 
 5. Provide clear and meaningful PR description
 
-   - Task name should be clarified in title. The general format is: \[Prefix\] Short description of the PR (Suffix)
-   - Prefix: add new feature \[Feature\], fix bug \[Fix\], related to documents \[Docs\], in developing \[WIP\] (which will not be reviewed temporarily)
+   - Task name should be clarified in title. The general format is: [Prefix] Short description of the PR (Suffix)
+   - Prefix: add new feature [Feature], fix bug [Fix], related to documents [Docs], in developing [WIP] (which will not be reviewed temporarily)
    - Introduce main changes, results and influences on other modules in short description
    - Associate related issues and pull requests with a milestone

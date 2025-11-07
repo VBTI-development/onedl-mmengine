@@ -83,9 +83,9 @@ MMEngine is a foundational library for training deep learning models based on Py
 <details>
 <summary>Supported PyTorch Versions</summary>
 
-| MMEngine | PyTorch      | Python          |
+| MMEngine | PyTorch | Python |
 | -------- | ------------ | --------------- |
-| main     | >=1.6 \<=2.1 | >=3.10, \<=3.11 |
+| main | >=1.6 \<=2.1 | >=3.10, \<=3.11 |
 
 </details>
 
