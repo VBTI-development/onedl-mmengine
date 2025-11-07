@@ -36,8 +36,6 @@ repos:
       - id: mdformat
         args: ["--number"]
         additional_dependencies:
-          - mdformat-openmmlab
-          - mdformat_frontmatter
           - linkify-it-py
   - repo: https://github.com/myint/docformatter
     rev: v1.7.7
