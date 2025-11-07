@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import itertools
 from collections.abc import Sized
-from typing import Any, List, Union, cast
+from typing import Any, List, Union, cast, get_args
 
 import numpy as np
 import torch
@@ -25,7 +25,8 @@ else:
     BoolTypeTensor = Union[torch.BoolTensor, torch.cuda.BoolTensor]
     LongTypeTensor = Union[torch.LongTensor, torch.cuda.LongTensor]
 
-IndexType = Union[str, slice, int, list, LongTypeTensor, BoolTypeTensor, np.ndarray]
+IndexType = Union[str, slice, int, list, LongTypeTensor, BoolTypeTensor,
+                  np.ndarray]
 
 
 # Modified from
@@ -171,7 +172,7 @@ class InstanceData(BaseDataElement):
         Returns:
             :obj:`InstanceData`: Corresponding values.
         """
-        assert isinstance(item, IndexType.__args__)
+        assert isinstance(item, get_args(IndexType))
         if isinstance(item, list):
             item = np.array(item)
         if isinstance(item, np.ndarray):
