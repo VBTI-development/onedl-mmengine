@@ -15,7 +15,7 @@ class TestEmptyCacheHook(RunnerTestCase):
         with patch('torch.cuda.empty_cache') as mock_empty_cache:
             cfg = self.epoch_based_cfg
             cfg.custom_hooks = [dict(type='EmptyCacheHook')]
-            cfg.train_cfg.val_interval = 1e6  # disable validation during training  # noqa: E501
+            cfg.train_cfg.val_begin = 1e6  # disable validation during training  # noqa: E501
             runner = self.build_runner(cfg)
 
             runner.train()
