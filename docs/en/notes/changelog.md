@@ -599,7 +599,7 @@ A total of 8 developers contributed to this release. Thanks [@LEFTeyex](https://
 - `hub.get_model` fails on some MMCls models by [@C1rN09](https://github.com/C1rN09) in https://github.com/open-mmlab/mmengine/pull/784
 - Fix `BaseModel.to` and `BaseDataPreprocessor.to` to make them consistent with `torch.nn.Module` by [@C1rN09](https://github.com/C1rN09) in https://github.com/open-mmlab/mmengine/pull/783
 - Fix creating a new logger at PretrainedInit by [@xiexinch](https://github.com/xiexinch) in https://github.com/open-mmlab/mmengine/pull/791
-- Fix `ZeroRedundancyOptimizer` ambiguous error with param groups when PyTorch < 1.12.0 by [@C1rN09](https://github.com/C1rN09) in https://github.com/open-mmlab/mmengine/pull/818
+- Fix `ZeroRedundancyOptimizer` ambiguous error with param groups when PyTorch \< 1.12.0 by [@C1rN09](https://github.com/C1rN09) in https://github.com/open-mmlab/mmengine/pull/818
 - Fix MessageHub set resumed key repeatedly by [@HAOCHENYE](https://github.com/HAOCHENYE) in https://github.com/open-mmlab/mmengine/pull/839
 - Add `progress` argument to `load_from_http` by [@austinmw](https://github.com/austinmw) in https://github.com/open-mmlab/mmengine/pull/770
 - Ensure metrics is not empty when saving best checkpoint by [@zhouzaida](https://github.com/zhouzaida) in https://github.com/open-mmlab/mmengine/pull/849

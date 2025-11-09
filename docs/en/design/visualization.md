@@ -46,7 +46,7 @@ The above APIs can be called in a chain except for `draw_featmap` because the im
 - [add_scalars](mmengine.visualization.Visualizer.add_scalars) writes multiple scalars to a specific storage backend at once
 - [add_datasample](mmengine.visualization.Visualizer.add_datasample) the abstract interface for each repositories to draw data sample
 
-Interfaces beginning with the `add` prefix represent storage APIs. [datasample] (`./data_element.md`)is the unified interface of each downstream repository in the OpenMMLab 2.0, and `add_datasample` can process the data sample directly .
+Interfaces beginning with the `add` prefix represent storage APIs. \[datasample\] (`./data_element.md`)is the unified interface of each downstream repository in the OpenMMLab 2.0, and `add_datasample` can process the data sample directly .
 
 3. Other APIs
 

@@ -77,7 +77,7 @@ param_scheduler = dict(type='MultiStepLR', by_epoch=True, milestones=[8, 11], ga
 
 Note that the parameter `by_epoch` is added here, which controls the frequency of learning rate adjustment. When set to True, it means adjusting by epoch. When set to False, it means adjusting by iteration. The default value is True.
 
-In the above example, it means to adjust according to epochs. At this time, the unit of the parameters is epoch. For example, [8, 11] in `milestones` means that the learning rate will be multiplied by 0.1 at the end of the 8 and 11 epoch.
+In the above example, it means to adjust according to epochs. At this time, the unit of the parameters is epoch. For example, \[8, 11\] in `milestones` means that the learning rate will be multiplied by 0.1 at the end of the 8 and 11 epoch.
 
 When the frequency is modified, the meaning of the count-related settings of the scheduler will be changed accordingly. When `by_epoch=True`, the numbers in milestones indicate at which epoch the learning rate decay is performed, and when `by_epoch=False` it indicates at which iteration the learning rate decay is performed.
 

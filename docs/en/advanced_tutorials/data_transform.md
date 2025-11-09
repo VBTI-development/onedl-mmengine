@@ -79,35 +79,35 @@ pre-processing & augmentation and data formatting.
 To support loading large-scale dataset, usually we won't load all dense data during dataset construction, but
 only load the file path of these data. Therefore, we need to load these data in the data pipeline.
 
-| Data Transforms | Functionality |
+|                     Data Transforms                      |                                     Functionality                                     |
 | :------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
-| [`LoadImageFromFile`](mmcv.transforms.LoadImageFromFile) | Load images according to the path. |
-| [`LoadAnnotations`](mmcv.transforms.LoadImageFromFile) | Load and format annotations information, including bbox, segmentation map and others. |
+| [`LoadImageFromFile`](mmcv.transforms.LoadImageFromFile) |                          Load images according to the path.                           |
+|  [`LoadAnnotations`](mmcv.transforms.LoadImageFromFile)  | Load and format annotations information, including bbox, segmentation map and others. |
 
 ### Data Pre-processing & Augmentation
 
 Data transforms for pre-processing and augmentation usually manipulate the image and annotation data, like
 cropping, padding, resizing and others.
 
-| Data Transforms | Functionality |
+|                      Data Transforms                       |                         Functionality                          |
 | :--------------------------------------------------------: | :------------------------------------------------------------: |
-| [`Pad`](mmcv.transforms.Pad) | Pad the margin of images. |
-| [`CenterCrop`](mmcv.transforms.CenterCrop) | Crop the image and keep the center part. |
-| [`Normalize`](mmcv.transforms.Normalize) | Normalize the image pixels. |
-| [`Resize`](mmcv.transforms.Resize) | Resize images to the specified scale or ratio. |
-| [`RandomResize`](mmcv.transforms.RandomResize) | Resize images to a random scale in the specified range. |
+|                [`Pad`](mmcv.transforms.Pad)                |                   Pad the margin of images.                    |
+|         [`CenterCrop`](mmcv.transforms.CenterCrop)         |            Crop the image and keep the center part.            |
+|          [`Normalize`](mmcv.transforms.Normalize)          |                  Normalize the image pixels.                   |
+|             [`Resize`](mmcv.transforms.Resize)             |         Resize images to the specified scale or ratio.         |
+|       [`RandomResize`](mmcv.transforms.RandomResize)       |    Resize images to a random scale in the specified range.     |
 | [`RandomChoiceResize`](mmcv.transforms.RandomChoiceResize) | Resize images to a random scale from several specified scales. |
-| [`RandomGrayscale`](mmcv.transforms.RandomGrayscale) | Randomly grayscale images. |
-| [`RandomFlip`](mmcv.transforms.RandomFlip) | Randomly flip images. |
+|    [`RandomGrayscale`](mmcv.transforms.RandomGrayscale)    |                   Randomly grayscale images.                   |
+|         [`RandomFlip`](mmcv.transforms.RandomFlip)         |                     Randomly flip images.                      |
 
 ### Data Formatting
 
 Data formatting transforms will convert the data to some specified type.
 
-| Data Transforms | Functionality |
+|                 Data Transforms                  |                     Functionality                     |
 | :----------------------------------------------: | :---------------------------------------------------: |
-| [`ToTensor`](mmcv.transforms.ToTensor) | Convert the data of specified field to `torch.Tensor` |
-| [`ImageToTensor`](mmcv.transforms.ImageToTensor) | Convert images to `torch.Tensor` in PyTorch format. |
+|      [`ToTensor`](mmcv.transforms.ToTensor)      | Convert the data of specified field to `torch.Tensor` |
+| [`ImageToTensor`](mmcv.transforms.ImageToTensor) |  Convert images to `torch.Tensor` in PyTorch format.  |
 
 ## Custom Data Transform Classes
 

@@ -234,7 +234,7 @@ The config for a pre-commit hook is stored in [.pre-commit-config](./.pre-commit
 
 5. Provide clear and meaningful PR description
 
-   - Task name should be clarified in title. The general format is: [Prefix] Short description of the PR (Suffix)
-   - Prefix: add new feature [Feature], fix bug [Fix], related to documents [Docs], in developing [WIP] (which will not be reviewed temporarily)
+   - Task name should be clarified in title. The general format is: \[Prefix\] Short description of the PR (Suffix)
+   - Prefix: add new feature \[Feature\], fix bug \[Fix\], related to documents \[Docs\], in developing \[WIP\] (which will not be reviewed temporarily)
    - Introduce main changes, results and influences on other modules in short description
    - Associate related issues and pull requests with a milestone
