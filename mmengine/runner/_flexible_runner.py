@@ -1611,7 +1611,7 @@ class FlexibleRunner:
             self.call_hook('before_save_checkpoint', checkpoint=checkpoint)
 
         self.strategy.save_checkpoint(
-            filename=filepath,
+            filename=str(filepath),
             save_optimizer=save_optimizer,
             save_param_scheduler=save_param_scheduler,
             extra_ckpt=checkpoint,
