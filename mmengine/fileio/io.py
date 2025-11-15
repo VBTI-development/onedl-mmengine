@@ -128,8 +128,6 @@ def get_file_backend(
         >>> # backend name has a higher priority if 'backend' in backend_args
         >>> backend = get_file_backend(uri, backend_args={'backend': 'petrel'})
     """
-    global backend_instances
-
     if backend_args is None:
         backend_args = {}
 

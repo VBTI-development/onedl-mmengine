@@ -156,8 +156,8 @@ class LocalBackend(BaseStorageBackend):
         """
         return osp.isfile(filepath)
 
-    def join_path(self, filepath: Union[str, Path],
-                  *filepaths: Union[str, Path]) -> str:
+    def join_path(self, filepath: Union[str, Path], *filepaths:
+                  Union[str, Path]) -> Union[str, Path]:
         r"""Concatenate all file paths.
 
         Join one or more filepath components intelligently. The return value
@@ -167,7 +167,8 @@ class LocalBackend(BaseStorageBackend):
             filepath (str or Path): Path to be concatenated.
 
         Returns:
-            str: The result of concatenation.
+            str or Path: The result of concatenation,
+            with the same type as filepath.
 
         Examples:
             >>> backend = LocalBackend()
@@ -177,8 +178,8 @@ class LocalBackend(BaseStorageBackend):
             >>> backend.join_path(filepath1, filepath2, filepath3)
             '/path/of/dir/dir2/path/of/file'
         """
-        # TODO, if filepath or filepaths are Path, should return Path
-        return osp.join(filepath, *filepaths)
+        result = osp.join(filepath, *filepaths)
+        return type(filepath)(result)
 
     @contextmanager
     def get_local_path(
@@ -203,7 +204,7 @@ class LocalBackend(BaseStorageBackend):
         self,
         src: Union[str, Path],
         dst: Union[str, Path],
-    ) -> str:
+    ) -> Union[str, Path]:
         """Copy a file src to dst and return the destination file.
 
         src and dst should have the same prefix. If dst specifies a directory,
@@ -215,7 +216,7 @@ class LocalBackend(BaseStorageBackend):
             dst (str or Path): Copy file to dst.
 
         Returns:
-            str: The destination file.
+            str or Path: The destination file, with the same type as dst.
 
         Raises:
             SameFileError: If src and dst are the same file, a SameFileError
@@ -236,13 +237,14 @@ class LocalBackend(BaseStorageBackend):
             >>> backend.copyfile(src, dst)
             '/path1/of/dir/file'
         """
-        return shutil.copy(src, dst)
+        result = shutil.copy(str(src), str(dst))
+        return type(dst)(result)
 
     def copytree(
         self,
         src: Union[str, Path],
         dst: Union[str, Path],
-    ) -> str:
+    ) -> Union[str, Path]:
         """Recursively copy an entire directory tree rooted at src to a
         directory named dst and return the destination directory.
 
@@ -255,7 +257,7 @@ class LocalBackend(BaseStorageBackend):
             dst (str or Path): Copy directory to dst.
 
         Returns:
-            str: The destination directory.
+            str or Path: The destination directory, with the same type as dst.
 
         Raises:
             FileExistsError: If dst had already existed, a FileExistsError will
@@ -268,13 +270,14 @@ class LocalBackend(BaseStorageBackend):
             >>> backend.copytree(src, dst)
             '/path/of/dir2'
         """
-        return shutil.copytree(src, dst)
+        result = shutil.copytree(str(src), str(dst))
+        return type(dst)(result)
 
     def copyfile_from_local(
         self,
         src: Union[str, Path],
         dst: Union[str, Path],
-    ) -> str:
+    ) -> Union[str, Path]:
         """Copy a local file src to dst and return the destination file. Same
         as :meth:`copyfile`.
 
@@ -283,8 +286,8 @@ class LocalBackend(BaseStorageBackend):
             dst (str or Path): Copy file to dst.
 
         Returns:
-            str: If dst specifies a directory, the file will be copied into dst
-            using the base filename from src.
+            str or Path: If dst specifies a directory, the file will be copied into dst
+            using the base filename from src, with the same type as dst.
 
         Raises:
             SameFileError: If src and dst are the same file, a SameFileError
@@ -311,7 +314,7 @@ class LocalBackend(BaseStorageBackend):
         self,
         src: Union[str, Path],
         dst: Union[str, Path],
-    ) -> str:
+    ) -> Union[str, Path]:
         """Recursively copy an entire directory tree rooted at src to a
         directory named dst and return the destination directory. Same as
         :meth:`copytree`.
@@ -321,7 +324,7 @@ class LocalBackend(BaseStorageBackend):
             dst (str or Path): Copy directory to dst.
 
         Returns:
-            str: The destination directory.
+            str or Path: The destination directory, with the same type as dst.
 
         Examples:
             >>> backend = LocalBackend()
@@ -336,7 +339,7 @@ class LocalBackend(BaseStorageBackend):
         self,
         src: Union[str, Path],
         dst: Union[str, Path],
-    ) -> str:
+    ) -> Union[str, Path]:
         """Copy the file src to local dst and return the destination file. Same
         as :meth:`copyfile`.
 
@@ -349,8 +352,8 @@ class LocalBackend(BaseStorageBackend):
             dst (str or Path): Copy file to to local dst.
 
         Returns:
-            str: If dst specifies a directory, the file will be copied into dst
-            using the base filename from src.
+            str or Path: If dst specifies a directory, the file will be copied into dst
+            using the base filename from src, with the same type as dst.
 
         Examples:
             >>> backend = LocalBackend()
@@ -373,7 +376,7 @@ class LocalBackend(BaseStorageBackend):
         self,
         src: Union[str, Path],
         dst: Union[str, Path],
-    ) -> str:
+    ) -> Union[str, Path]:
         """Recursively copy an entire directory tree rooted at src to a local
         directory named dst and return the destination directory.
 
@@ -384,7 +387,7 @@ class LocalBackend(BaseStorageBackend):
                 prefix of uri corresponding backend. Defaults to None.
 
         Returns:
-            str: The destination directory.
+            str or Path: The destination directory, with the same type as dst.
 
         Examples:
             >>> backend = LocalBackend()

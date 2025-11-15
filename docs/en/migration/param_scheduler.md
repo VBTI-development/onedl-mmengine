@@ -435,7 +435,7 @@ param_scheduler = [
 </thead>
 </table>
 
-Notice:  `by_epoch` defaults to `False` in MMCV. It now defaults to `True` in MMEngine.
+Notice: `by_epoch` defaults to `False` in MMCV. It now defaults to `True` in MMEngine.
 
 ### LinearAnnealingLrUpdaterHook migration
 

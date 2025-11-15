@@ -11,7 +11,7 @@ Visualization provides an intuitive explanation of the training and testing proc
 
 Based on the above requirements, we proposed the `Visualizer` and various `VisBackend` such as `LocalVisBackend`, `WandbVisBackend`, and `TensorboardVisBackend` in OpenMMLab 2.0. The visualizer could not only visualize the image data, but also things like configurations, scalars, and model structure.
 
-- For convenience, the APIs provided by the `Visualizer` implement the drawing and storage functions.  As an internal property of `Visualizer`, `VisBackend` will be called by `Visualizer` to write data to different backends.
+- For convenience, the APIs provided by the `Visualizer` implement the drawing and storage functions. As an internal property of `Visualizer`, `VisBackend` will be called by `Visualizer` to write data to different backends.
 - Considering that you may want to write data to multiple backends after drawing, `Visualizer` can be configured with multiple backends. When the user calls the storage API of the `Visualizer`, it will traverse and call all the specified APIs of `VisBackend` internally.
 
 The UML diagram of the two is as follows.

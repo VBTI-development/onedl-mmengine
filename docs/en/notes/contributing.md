@@ -77,7 +77,7 @@ pre-commit run --all-files
 
 If the installation process is interrupted, you can repeatedly run `pre-commit run ... ` to continue the installation.
 
-If the code does not conform to the code style specification, pre-commit will raise a warning and  fixes some of the errors automatically.
+If the code does not conform to the code style specification, pre-commit will raise a warning and fixes some of the errors automatically.
 
 <img src="https://user-images.githubusercontent.com/57566630/202369176-67642454-0025-4023-a095-263529107aa3.png" width="1200">
 

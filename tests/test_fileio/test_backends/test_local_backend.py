@@ -148,13 +148,12 @@ class TestLocalBackend(TestCase):
         backend = LocalBackend()
         filepath = backend.join_path(
             path_type(self.test_data_dir), path_type('file'))
-        expected = osp.join(path_type(self.test_data_dir), path_type('file'))
+        expected = path_type(osp.join(str(self.test_data_dir), 'file'))
         self.assertEqual(filepath, expected)
 
         filepath = backend.join_path(
             path_type(self.test_data_dir), path_type('dir'), path_type('file'))
-        expected = osp.join(
-            path_type(self.test_data_dir), path_type('dir'), path_type('file'))
+        expected = path_type(osp.join(str(self.test_data_dir), 'dir', 'file'))
         self.assertEqual(filepath, expected)
 
     @parameterized.expand([[Path], [str]])

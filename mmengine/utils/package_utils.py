@@ -68,7 +68,7 @@ def get_installed_path(package: str) -> str:
         top_level = dist.read_text('top_level.txt')
         if top_level:
             module_name = top_level.split('\n')[0].strip()
-            possible_path = osp.join(dist.locate_file(''), module_name)
+            possible_path = osp.join(str(dist.locate_file('')), module_name)
             if osp.exists(possible_path):
                 return possible_path
 

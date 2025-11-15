@@ -92,7 +92,7 @@ When performing inference, the following steps are typically executed:
 3. visualize: Visualization of predicted results.
 4. postprocess: Post-processing of predicted results, including result format conversion, exporting predicted results, etc.
 
-To improve the user experience of the inferencer,  we do not want users to have to configure parameters for each step when performing inference. In other words, we hope that users can simply configure parameters for the `__call__` interface without being aware of the above process and complete the inference.
+To improve the user experience of the inferencer, we do not want users to have to configure parameters for each step when performing inference. In other words, we hope that users can simply configure parameters for the `__call__` interface without being aware of the above process and complete the inference.
 
 The `__call__` interface will execute the aforementioned steps in order, but it is not aware of which step the parameters provided by the user should be assigned to. Therefore, when developing a `CustomInferencer`, developers need to define four class attributes: `preprocess_kwargs`, `forward_kwargs`, `visualize_kwargs`, and `postprocess_kwargs`. Each attribute is a set of strings that are used to specify which step the parameters in the `__call__` interface correspond to:
 
