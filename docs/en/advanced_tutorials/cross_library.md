@@ -59,7 +59,7 @@ train_pipeline=[
 
 Using an algorithm from another library is a little bit complex.
 
-An algorithm contains multiple submodules. Each submodule needs to add a prefix to its `type`. Take  using MMDetection's YOLOX in MMTracking as an example:
+An algorithm contains multiple submodules. Each submodule needs to add a prefix to its `type`. Take using MMDetection's YOLOX in MMTracking as an example:
 
 ```python
 # Use custom_imports to register mmdet models to the registry

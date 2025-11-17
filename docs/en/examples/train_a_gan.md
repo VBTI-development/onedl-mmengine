@@ -148,7 +148,7 @@ from mmengine.model import ImgDataPreprocessor
 data_preprocessor = ImgDataPreprocessor(mean=([127.5]), std=([127.5]))
 ```
 
-The following code implements the basic algorithm of GAN. To implement the algorithm using MMEngine, you need to inherit from the [BaseModel](mmengine.model.BaseModel) and implement the training process in the train_step.  GAN requires alternating training of the generator and discriminator, which are implemented by train_discriminator and train_generator and implement disc_loss and gen_loss to calculate the discriminator loss function and generator loss function.
+The following code implements the basic algorithm of GAN. To implement the algorithm using MMEngine, you need to inherit from the [BaseModel](mmengine.model.BaseModel) and implement the training process in the train_step. GAN requires alternating training of the generator and discriminator, which are implemented by train_discriminator and train_generator and implement disc_loss and gen_loss to calculate the discriminator loss function and generator loss function.
 More details about BaseModel, refer to [Model tutorial](../tutorials/model.md).
 
 ```python

@@ -28,8 +28,6 @@ def _register_backend(name: str,
         prefixes (str or list[str] or tuple[str], optional): The prefix
             of the registered storage backend. Defaults to None.
     """
-    global backends, prefix_to_backends
-
     if not isinstance(name, str):
         raise TypeError('the backend name should be a string, '
                         f'but got {type(name)}')

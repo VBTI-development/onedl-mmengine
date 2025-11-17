@@ -245,11 +245,11 @@ def test_isfile():
 def test_join_path():
     # test LocalBackend
     filepath = fileio.join_path(test_data_dir, 'file')
-    expected = osp.join(test_data_dir, 'file')
+    expected = test_data_dir / 'file'
     assert filepath == expected
 
     filepath = fileio.join_path(test_data_dir, 'dir', 'file')
-    expected = osp.join(test_data_dir, 'dir', 'file')
+    expected = test_data_dir / 'dir' / 'file'
     assert filepath == expected
 
 

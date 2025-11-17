@@ -1425,8 +1425,8 @@ class Runner:
                     'type of worker_init_fn should be string or callable '
                     f'object, but got {type(worker_init_fn_type)}')
             assert callable(worker_init_fn)
-            init_fn = partial(worker_init_fn,
-                              **worker_init_fn_cfg)  # type: ignore
+            init_fn = partial(  # type: ignore
+                worker_init_fn, **worker_init_fn_cfg)
         else:
             if seed is not None:
                 disable_subprocess_warning = dataloader_cfg.pop(
@@ -1436,7 +1436,7 @@ class Runner:
                     f'{type(disable_subprocess_warning)}')
                 init_fn = partial(
                     default_worker_init_fn,
-                    num_workers=dataloader_cfg.get('num_workers'),
+                    num_workers=dataloader_cfg.get('num_workers', 0),
                     rank=get_rank(),
                     seed=seed,
                     disable_subprocess_warning=disable_subprocess_warning)

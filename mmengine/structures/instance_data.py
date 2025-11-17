@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import itertools
 from collections.abc import Sized
-from typing import Any, List, Union
+from typing import Any, List, Union, cast, get_args
 
 import numpy as np
 import torch
@@ -9,8 +9,8 @@ import torch
 from mmengine.device import get_device
 from .base_data_element import BaseDataElement
 
-BoolTypeTensor: Union[Any]
-LongTypeTensor: Union[Any]
+BoolTypeTensor: Any
+LongTypeTensor: Any
 
 if get_device() == 'npu':
     BoolTypeTensor = Union[torch.BoolTensor, torch.npu.BoolTensor]
@@ -25,8 +25,8 @@ else:
     BoolTypeTensor = Union[torch.BoolTensor, torch.cuda.BoolTensor]
     LongTypeTensor = Union[torch.LongTensor, torch.cuda.LongTensor]
 
-IndexType: Union[Any] = Union[str, slice, int, list, LongTypeTensor,
-                              BoolTypeTensor, np.ndarray]
+IndexType = Union[str, slice, int, list, LongTypeTensor, BoolTypeTensor,
+                  np.ndarray]
 
 
 # Modified from
@@ -172,7 +172,7 @@ class InstanceData(BaseDataElement):
         Returns:
             :obj:`InstanceData`: Corresponding values.
         """
-        assert isinstance(item, IndexType.__args__)
+        assert isinstance(item, get_args(IndexType))
         if isinstance(item, list):
             item = np.array(item)
         if isinstance(item, np.ndarray):
@@ -284,7 +284,7 @@ class InstanceData(BaseDataElement):
         new_data = instances_list[0].__class__(
             metainfo=instances_list[0].metainfo)
         for k in instances_list[0].keys():
-            values = [results[k] for results in instances_list]
+            values = [cast(Any, results[k]) for results in instances_list]
             v0 = values[0]
             if isinstance(v0, torch.Tensor):
                 new_values = torch.cat(values, dim=0)

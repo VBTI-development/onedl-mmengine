@@ -239,7 +239,7 @@ Although the `init_cfg` could control the initialization method for different mo
 
 Assuming we've defined the following modules:
 
-- `ToyConv` inherit from `nn.Module`, implements `init_weights`which initialize `custom_weight`(`parameter` of `ToyConv`) with 1 and  initialize `custom_bias` with 0
+- `ToyConv` inherit from `nn.Module`, implements `init_weights`which initialize `custom_weight`(`parameter` of `ToyConv`) with 1 and initialize `custom_bias` with 0
 
 - `ToyNet` defines a `ToyConv` submodule.
 
@@ -353,7 +353,7 @@ from mmengine.model import normal_init
 normal_init(model, mean=0, std=0.01, bias=0)
 ```
 
-Similarly, we could also use [Kaiming](http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf) initialization and  [Xavier](http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf) initialization:
+Similarly, we could also use [Kaiming](http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf) initialization and [Xavier](http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf) initialization:
 
 ```python
 from mmengine.model import kaiming_init, xavier_init
