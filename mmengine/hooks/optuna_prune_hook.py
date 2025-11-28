@@ -80,9 +80,11 @@ class OptunaPruneHook(Hook):
             trial_number: The number of the Optuna trial.
             study_storage_url: The storage URL of the Optuna study.
         """
-        study = optuna.load_study(
-            study_name=study_name, storage=study_storage_url)
+        storage = optuna.storages.RDBStorage(url=study_storage_url)
+        study: optuna.Study = optuna.load_study(
+            study_name=study_name, storage=storage)
         trial = study.trials[trial_number]
+
         return trial
 
     def before_run(self, runner) -> None:
