@@ -91,7 +91,8 @@ all = [
     "parameterized",
     "pydantic==1.10.9",
     "pytest",
-    "transformers"
+    "transformers",
+    "optuna>=4.6.0",
 ]
 
 [project.urls]
@@ -137,3 +138,6 @@ explicit = true
 [tool.pytest.ini_options]
 norecursedirs = "tests/data"
 testpaths = "tests"
+
+[tool.uv]
+compile-bytecode = true
