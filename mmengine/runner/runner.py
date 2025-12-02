@@ -9,6 +9,7 @@ import time
 import warnings
 from collections import OrderedDict
 from functools import partial
+from inspect import isclass
 from typing import Callable, Dict, List, Optional, Sequence, Union
 
 import torch
@@ -904,11 +905,10 @@ class Runner:
             model_wrapper_cfg.setdefault('type', 'MMDistributedDataParallel')
             model_wrapper_type = model_wrapper_cfg.get('type')
             if isinstance(model_wrapper_type, str):
-                model_wrapper_type = MODEL_WRAPPERS.get(
-                    model_wrapper_type)  # type: ignore
+                model_wrapper_type = MODEL_WRAPPERS.get(model_wrapper_type)
             else:
-                assert isinstance(model_wrapper_type,
-                                  type), 'type should be a string or a class'
+                assert isclass(
+                    model_wrapper_type), 'type should be a string or a class'
 
             default_args: dict = dict()
             if issubclass(
