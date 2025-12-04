@@ -1394,6 +1394,11 @@ class Config:
         def _format_basic_types(k, v, use_mapping=False):
             if isinstance(v, str):
                 v_str = repr(v)
+            elif isinstance(v, type):
+                if v.__module__ == 'builtins':
+                    v_str = v.__name__
+                else:
+                    v_str = f'{v.__module__}.{v.__name__}'
             else:
                 v_str = str(v)
 
@@ -1425,6 +1430,12 @@ class Config:
                     v_str += f'{_indent(_format_list_tuple(None, item), indent)},\n'  # noqa: 501
                 elif isinstance(item, str):
                     v_str += f'{_indent(repr(item), indent)},\n'
+                elif isinstance(item, type):
+                    if item.__module__ == 'builtins':
+                        item_str = item.__name__
+                    else:
+                        item_str = f'{item.__module__}.{item.__name__}'
+                    v_str += f'{_indent(item_str, indent)},\n'
                 else:
                     v_str += str(item) + ',\n'
             if k is None:
