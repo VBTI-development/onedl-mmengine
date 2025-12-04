@@ -11,8 +11,10 @@ import torch
 import torch.distributed as torch_dist
 
 import mmengine.dist as dist
+from mmengine.config import Config
 from mmengine.device import is_musa_available
 from mmengine.dist.dist import sync_random_seed
+from mmengine.runner import Runner
 from mmengine.testing._internal import MultiProcessTestCase
 from mmengine.utils import digit_version
 from mmengine.utils.dl_utils import TORCH_VERSION
@@ -656,3 +658,12 @@ class TestDistWithNCCLBackend(MultiProcessTestCase):
 
             for item1, item2 in zip(data_gen, expected):
                 self.assertTrue(torch.allclose(item1, item2))
+
+    def test_build_runner_pure_python_style(self):
+        cfg = Config.fromfile(
+            osp.join(
+                osp.dirname(__file__), '..', 'data', 'config',
+                'lazy_module_config', 'pure_python_style_toy_config.py'))
+        cfg.work_dir = tempfile.mkdtemp()
+        cfg.experiment_name = 'test_build_runner_pure_python_style_config'
+        Runner.from_cfg(cfg)
