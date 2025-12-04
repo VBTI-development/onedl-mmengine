@@ -660,6 +660,7 @@ class TestDistWithNCCLBackend(MultiProcessTestCase):
                 self.assertTrue(torch.allclose(item1, item2))
 
     def test_build_runner_pure_python_style(self):
+        self._init_dist_env(self.rank, self.world_size)
         cfg = Config.fromfile(
             osp.join(
                 osp.dirname(__file__), '..', 'data', 'config',
