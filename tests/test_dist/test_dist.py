@@ -11,8 +11,10 @@ import torch
 import torch.distributed as torch_dist
 
 import mmengine.dist as dist
+from mmengine.config import Config
 from mmengine.device import is_musa_available
 from mmengine.dist.dist import sync_random_seed
+from mmengine.runner import Runner
 from mmengine.testing._internal import MultiProcessTestCase
 from mmengine.utils import digit_version
 from mmengine.utils.dl_utils import TORCH_VERSION
@@ -362,7 +364,7 @@ class TestDistWithNCCLBackend(MultiProcessTestCase):
         """Initialize the distributed environment."""
         os.environ['MASTER_ADDR'] = '127.0.0.1'
         os.environ['MASTER_PORT'] = '29505'
-        os.environ['RANK'] = str(rank)
+        os.environ['LOCAL_RANK'] = os.environ['RANK'] = str(rank)
 
         num_gpus = torch.cuda.device_count()
         torch.cuda.set_device(rank % num_gpus)
@@ -656,3 +658,13 @@ class TestDistWithNCCLBackend(MultiProcessTestCase):
 
             for item1, item2 in zip(data_gen, expected):
                 self.assertTrue(torch.allclose(item1, item2))
+
+    def test_build_runner_pure_python_style(self):
+        self._init_dist_env(self.rank, self.world_size)
+        cfg = Config.fromfile(
+            osp.join(
+                osp.dirname(__file__), '..', 'data', 'config',
+                'lazy_module_config', 'pure_python_style_toy_config.py'))
+        cfg.work_dir = tempfile.mkdtemp()
+        cfg.experiment_name = 'test_build_runner_pure_python_style_config'
+        Runner.from_cfg(cfg)
