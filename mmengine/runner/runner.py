@@ -907,8 +907,8 @@ class Runner:
             if isinstance(model_wrapper_type, str):
                 model_wrapper_type = MODEL_WRAPPERS.get(model_wrapper_type)
             else:
-                assert isclass(
-                    model_wrapper_type), 'type should be a string or a class'
+                if not isclass(model_wrapper_type):
+                    raise TypeError('type should be a string or a class')
 
             default_args: dict = dict()
             if issubclass(
