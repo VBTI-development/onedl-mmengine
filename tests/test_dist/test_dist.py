@@ -364,7 +364,7 @@ class TestDistWithNCCLBackend(MultiProcessTestCase):
         """Initialize the distributed environment."""
         os.environ['MASTER_ADDR'] = '127.0.0.1'
         os.environ['MASTER_PORT'] = '29505'
-        os.environ['RANK'] = str(rank)
+        os.environ['LOCAL_RANK'] = os.environ['RANK'] = str(rank)
 
         num_gpus = torch.cuda.device_count()
         torch.cuda.set_device(rank % num_gpus)
