@@ -91,7 +91,8 @@ all = [
     "parameterized",
     "pydantic==1.10.9",
     "pytest",
-    "transformers"
+    "transformers",
+    "deepspeed",
 ]
 
 [project.urls]

@@ -453,7 +453,7 @@ class TestAmpOptimWrapper(TestCase):
     @parameterized.expand(list(zip(amp_valid_dtypes)))
     @unittest.skipIf(
         not torch.cuda.is_available(),
-        reason='`torch.cuda.amp` is only available when pytorch-gpu installed')
+        reason='`torch.amp` is only available when pytorch-gpu installed')
     def test_step(self, dtype):
         if dtype is not None and (digit_version(TORCH_VERSION)
                                   < digit_version('1.10.0')):

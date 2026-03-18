@@ -96,7 +96,7 @@ def autocast(device_type: Optional[str] = None,
             with torch.mlu.amp.autocast(enabled=enabled):
                 yield
         elif is_cuda_available():
-            with torch.autocast('cuda', enabled=enabled):
+            with torch.amp.autocast('cuda', enabled=enabled):
                 yield
         else:
             if not enabled:
