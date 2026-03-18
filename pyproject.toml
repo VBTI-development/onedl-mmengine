@@ -1,6 +1,6 @@
 [project]
 name = "onedl-mmengine"
-version = "0.10.9"
+version = "0.10.10"
 description = "Engine of VBTI projects"
 readme = "README.md"
 authors = [
