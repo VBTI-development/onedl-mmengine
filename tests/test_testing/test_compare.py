@@ -189,14 +189,15 @@ def test_assert_params_all_zeros():
 
 def test_check_python_script(capsys):
     testing.check_python_script(
-        f"{Path(__file__).parent.parent / 'data/scripts/hello.py'} zz")
+        f"\"{Path(__file__).parent.parent / 'data/scripts/hello.py'}\" zz")
     captured = capsys.readouterr().out
     assert captured == 'hello zz!\n'
     testing.check_python_script(
-        f"{Path(__file__).parent.parent / 'data/scripts/hello.py'} agent")
+        f"\"{Path(__file__).parent.parent / 'data/scripts/hello.py'}\" agent")
     captured = capsys.readouterr().out
     assert captured == 'hello agent!\n'
     # Make sure that wrong cmd raises an error
     with pytest.raises(SystemExit):
         testing.check_python_script(
-            f"{Path(__file__).parent.parent / 'data/scripts/hello.py'} li zz")
+            f"\"{Path(__file__).parent.parent / 'data/scripts/hello.py'}\" li zz"
+        )

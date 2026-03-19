@@ -27,7 +27,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sudo apt-get install -y libaio-dev libgl1 libglib2.0-0"
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y libaio-dev libgl1 libglib2.0-0"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

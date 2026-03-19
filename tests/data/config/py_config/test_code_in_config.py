@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-import pathlib
 import inspect
+import pathlib
 
 from mmengine import Config  # isort:skip
 
