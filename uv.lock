@@ -2908,7 +2908,7 @@ requires-dist = [
     { name = "numpy" },
     { name = "numpy", marker = "extra == 'all'" },
     { name = "parameterized", marker = "extra == 'all'" },
-    { name = "pydantic", marker = "extra == 'all'", specifier = "==1.10.9" },
+    { name = "pydantic", marker = "extra == 'all'" },
     { name = "pytest", marker = "extra == 'all'" },
     { name = "pyyaml" },
     { name = "pyyaml", marker = "extra == 'all'" },
