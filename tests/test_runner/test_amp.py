@@ -62,7 +62,7 @@ class TestAmp(unittest.TestCase):
                 self.assertEqual(res.dtype, torch.float32)
         elif not torch.cuda.is_available():
             if digit_version(TORCH_VERSION) < digit_version('1.10.0'):
-                # `torch.cuda.amp.autocast` is only support in gpu mode, if
+                # `torch.amp.autocast` is only support in gpu mode, if
                 # cuda is not available, it will return an empty context and
                 # should not accept any arguments.
                 with self.assertRaisesRegex(RuntimeError,

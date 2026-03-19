@@ -89,7 +89,7 @@ all = [
     "lmdb",
     "mlflow",
     "parameterized",
-    "pydantic==1.10.9",
+    "pydantic",
     "pytest",
     "transformers",
     "deepspeed",

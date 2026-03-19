@@ -41,7 +41,8 @@ class TestRegistry:
             CATS = Registry('cat', scope=1)
 
         CATS = Registry('cat')
-        assert CATS.scope == 'test_registry'
+        default_scope = __name__.split('.')[0]
+        assert CATS.scope == default_scope
 
         CATS = Registry('cat', scope='cat')
         assert CATS.scope == 'cat'
@@ -115,10 +116,11 @@ class TestRegistry:
                 pass
 
         # force=False
+        default_scope = __name__.split('.')[0]
         with pytest.raises(
                 KeyError,
                 match='BritishShorthair is already registered in cat '
-                'at test_registry'):
+                f'at {default_scope}'):
 
             @CATS.register_module()
             class BritishShorthair:
