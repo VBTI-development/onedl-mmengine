@@ -34,4 +34,4 @@ def test_get_install_path():
     sys.path.pop()
 
     with pytest.raises(PackageNotFoundError):
-        get_installed_path('unknown')
+        get_installed_path('unknown-package')

@@ -44,7 +44,9 @@ def linear_wrap_policy(
 class TestStrategy(TestCase):
 
     def setUp(self):
-        self.world_size = 2
+        self.world_size = min(2, torch.cuda.device_count())
+        if self.world_size < 2:
+            self.skipTest('At least 2 CUDA GPUs are required for FSDP tests')
         self.temp_dir = TemporaryDirectory()
 
     def tearDown(self) -> None:

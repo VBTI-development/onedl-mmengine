@@ -1,6 +1,6 @@
 [project]
 name = "onedl-mmengine"
-version = "0.10.9"
+version = "0.10.10"
 description = "Engine of VBTI projects"
 readme = "README.md"
 authors = [
@@ -89,9 +89,10 @@ all = [
     "lmdb",
     "mlflow",
     "parameterized",
-    "pydantic==1.10.9",
+    "pydantic",
     "pytest",
-    "transformers"
+    "transformers",
+    "deepspeed",
 ]
 
 [project.urls]

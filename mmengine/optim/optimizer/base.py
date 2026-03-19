@@ -54,7 +54,7 @@ class BaseOptimWrapper(metaclass=ABCMeta):
         Provide unified ``load_state_dict`` interface compatible with automatic
         mixed precision training. Subclass can overload this method to
         implement the required logic. For example, the state dictionary of
-        GradScaler should be loaded when training with ``torch.cuda.amp``.
+        GradScaler should be loaded when training with ``torch.amp``.
 
         Args:
             state_dict (dict): The state dictionary of :attr:`optimizer`.

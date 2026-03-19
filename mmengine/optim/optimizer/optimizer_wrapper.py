@@ -206,7 +206,7 @@ class OptimWrapper(BaseOptimWrapper):
 
         Provide unified ``backward`` interface compatible with automatic mixed
         precision training. Subclass can overload this method to implement the
-        required logic. For example, ``torch.cuda.amp`` require some extra
+        required logic. For example, ``torch.amp`` require some extra
         operation on GradScaler during backward process.
 
         Note:
@@ -238,7 +238,7 @@ class OptimWrapper(BaseOptimWrapper):
 
         Provide unified ``step`` interface compatible with automatic mixed
         precision training. Subclass can overload this method to implement the
-        required logic. For example, ``torch.cuda.amp`` require some extra
+        required logic. For example, ``torch.amp`` require some extra
         operation on ``GradScaler`` during step process.
 
         Clip grad if :attr:`clip_grad_kwargs` is not None, and then update
