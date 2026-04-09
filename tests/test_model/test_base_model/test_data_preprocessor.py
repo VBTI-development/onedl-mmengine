@@ -118,6 +118,14 @@ class TestImgDataPreprocessor(TestBaseDataPreprocessor):
         with self.assertRaisesRegex(AssertionError, '`std` should have'):
             ImgDataPreprocessor(mean=(1, 2, 3), std=(1, 2))
 
+        with self.assertRaisesRegex(TypeError,
+                                    '`bgr_to_rgb` should be a boolean'):
+            ImgDataPreprocessor(bgr_to_rgb='false')
+
+        with self.assertRaisesRegex(TypeError,
+                                    '`rgb_to_bgr` should be a boolean'):
+            ImgDataPreprocessor(rgb_to_bgr=1)
+
         with self.assertRaisesRegex(AssertionError, '`bgr2rgb` and `rgb2bgr`'):
             ImgDataPreprocessor(bgr_to_rgb=True, rgb_to_bgr=True)
 

@@ -212,6 +212,12 @@ class ImgDataPreprocessor(BaseDataPreprocessor):
                  rgb_to_bgr: bool = False,
                  non_blocking: Optional[bool] = False):
         super().__init__(non_blocking)
+        if not isinstance(bgr_to_rgb, bool):
+            raise TypeError(f'`bgr_to_rgb` should be a boolean, but got '
+                            f'{type(bgr_to_rgb)}')
+        if not isinstance(rgb_to_bgr, bool):
+            raise TypeError(f'`rgb_to_bgr` should be a boolean, but got '
+                            f'{type(rgb_to_bgr)}')
         assert not (bgr_to_rgb and rgb_to_bgr), (
             '`bgr2rgb` and `rgb2bgr` cannot be set to True at the same time')
         assert (mean is None) == (std is None), (
