@@ -7,7 +7,7 @@ from typing import Any, Callable, Dict, List, Optional, Union
 from unittest.mock import patch
 
 from torch.nn import GroupNorm, LayerNorm
-from torch.testing import assert_close as _assert_allclose
+from torch.testing import assert_close as _assert_close
 
 from mmengine.utils.dl_utils import TORCH_VERSION
 from mmengine.utils.dl_utils.parrots_wrapper import _BatchNorm, _InstanceNorm
@@ -22,7 +22,7 @@ def assert_allclose(
     msg: Optional[Union[str, Callable]] = '',
 ) -> None:
     """Asserts that ``actual`` and ``expected`` are close. A wrapper function
-    of ``torch.testing.assert_allclose``.
+    of ``torch.testing.assert_close``.
 
     Args:
         actual (Any): Actual input.
@@ -36,11 +36,10 @@ def assert_allclose(
         equal_nan (bool): If ``True``, two ``NaN`` values will be considered
             equal.
         msg (Optional[Union[str, Callable]]): Optional error message to use if
-            the values of corresponding tensors mismatch. Unused when PyTorch
-            < 1.6.
+            the values of corresponding tensors mismatch.
     """
     if 'parrots' not in TORCH_VERSION:
-        _assert_allclose(
+        _assert_close(
             actual,
             expected,
             rtol=rtol,
@@ -48,9 +47,9 @@ def assert_allclose(
             equal_nan=equal_nan,
             msg=msg)
     else:
-        # torch.testing.assert_allclose has no ``msg`` argument in parrots,
+        # torch.testing.assert_close has no ``msg`` argument in parrots,
         # so we ignore it.
-        _assert_allclose(
+        _assert_close(
             actual, expected, rtol=rtol, atol=atol, equal_nan=equal_nan)
 
 
