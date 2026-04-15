@@ -7,9 +7,8 @@ from typing import Any, Callable, Dict, List, Optional, Union
 from unittest.mock import patch
 
 from torch.nn import GroupNorm, LayerNorm
-from torch.testing import assert_allclose as _assert_allclose
+from torch.testing import assert_close as _assert_allclose
 
-from mmengine.utils import digit_version
 from mmengine.utils.dl_utils import TORCH_VERSION
 from mmengine.utils.dl_utils.parrots_wrapper import _BatchNorm, _InstanceNorm
 
@@ -40,8 +39,7 @@ def assert_allclose(
             the values of corresponding tensors mismatch. Unused when PyTorch
             < 1.6.
     """
-    if 'parrots' not in TORCH_VERSION and \
-            digit_version(TORCH_VERSION) >= digit_version('1.6'):
+    if 'parrots' not in TORCH_VERSION:
         _assert_allclose(
             actual,
             expected,
@@ -50,8 +48,8 @@ def assert_allclose(
             equal_nan=equal_nan,
             msg=msg)
     else:
-        # torch.testing.assert_allclose has no ``msg`` argument
-        # when PyTorch < 1.6
+        # torch.testing.assert_allclose has no ``msg`` argument in parrots,
+        # so we ignore it.
         _assert_allclose(
             actual, expected, rtol=rtol, atol=atol, equal_nan=equal_nan)
 
