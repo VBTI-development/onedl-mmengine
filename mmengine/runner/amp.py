@@ -64,7 +64,7 @@ def autocast(device_type: Optional[str] = None,
 
     if device_type == 'cuda':
         if dtype is None:
-            dtype = torch.get_autocast_gpu_dtype()
+            dtype = torch.get_autocast_dtype('cuda')
 
         if dtype == torch.bfloat16 and not \
                 torch.cuda.is_bf16_supported():
@@ -85,7 +85,7 @@ def autocast(device_type: Optional[str] = None,
         pass
     elif device_type == 'musa':
         if dtype is None:
-            dtype = torch.get_autocast_gpu_dtype()
+            dtype = torch.get_autocast_dtype('musa')
         with torch.musa.amp.autocast(
                 enabled=enabled, dtype=dtype, cache_enabled=cache_enabled):
             yield

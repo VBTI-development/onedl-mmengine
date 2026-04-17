@@ -94,7 +94,8 @@ class TestImgDataPreprocessor(TestBaseDataPreprocessor):
         self.assertFalse(hasattr(data_processor, 'mean'))
         self.assertFalse(hasattr(data_processor, 'std'))
         self.assertEqual(data_processor.pad_size_divisor, 1)
-        assert_allclose(data_processor.pad_value, torch.tensor(0))
+        assert_allclose(
+            torch.tensor(data_processor.pad_value), torch.tensor(0))
 
         # Initiate model with bgr2rgb, mean, std .etc..
         data_processor = ImgDataPreprocessor(
@@ -109,7 +110,8 @@ class TestImgDataPreprocessor(TestBaseDataPreprocessor):
                         torch.tensor([0, 0, 0]).view(-1, 1, 1))
         assert_allclose(data_processor.std,
                         torch.tensor([255, 255, 255]).view(-1, 1, 1))
-        assert_allclose(data_processor.pad_value, torch.tensor(10))
+        assert_allclose(
+            torch.tensor(data_processor.pad_value), torch.tensor(10))
         self.assertEqual(data_processor.pad_size_divisor, 16)
 
         with self.assertRaisesRegex(AssertionError, '`mean` should have'):

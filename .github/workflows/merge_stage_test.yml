@@ -31,7 +31,7 @@ jobs:
           - torch: '2.4.1'
             torchvision: '0.19.1'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
@@ -72,7 +72,7 @@ jobs:
           - torch: '2.1.0'
             python-version: '3.10'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
@@ -99,7 +99,7 @@ jobs:
   #     matrix:
   #       python-version: ['3.7']
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v6
   #     - name: Set up Python ${{ matrix.python-version }}
   #       uses: actions/setup-python@v4
   #       with:
@@ -129,7 +129,7 @@ jobs:
     env:
       UV_CACHE_DIR: /__w/_uv_cache
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
@@ -166,7 +166,7 @@ jobs:
   #         - torch: 1.13.0
   #           torchvision: 0.14.0
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v6
   #     - name: Set up Python 3.7
   #       uses: actions/setup-python@v4
   #       with:
@@ -204,7 +204,7 @@ jobs:
   #           torch: '2.1.0'
   #           torchvision: '0.16.0'
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v6
   #     - name: Set up Python ${{ matrix.python-version }}
   #       uses: actions/setup-python@v4
   #       with:
