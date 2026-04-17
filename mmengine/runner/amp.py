@@ -85,7 +85,7 @@ def autocast(device_type: Optional[str] = None,
         pass
     elif device_type == 'musa':
         if dtype is None:
-            dtype = torch.get_autocast_dtype('cuda')
+            dtype = torch.get_autocast_dtype('musa')
         with torch.musa.amp.autocast(
                 enabled=enabled, dtype=dtype, cache_enabled=cache_enabled):
             yield
