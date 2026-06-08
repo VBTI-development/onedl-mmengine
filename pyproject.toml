@@ -43,15 +43,17 @@ test = [
     "mlflow",
     "opencv-python",
     "parameterized",
-    "pydantic",
-    "pytest",
+    "pydantic>=1.10.20,<2",
+    "pytest<9",
+    "torch==2.4.1",
+    "torchvision==0.19.1",
     "transformers"
 ]
 test-lite = [
     "lmdb",
     "opencv-python",
     "parameterized",
-    "pytest",
+    "pytest<9",
 ]
 docs = [
     "docutils",
@@ -68,6 +70,10 @@ docs = [
     "torch",
     "torchvision",
     "urllib3"
+]
+lint = [
+    "interrogate",
+    "pre-commit",
 ]
 
 [project.optional-dependencies]
@@ -91,8 +97,8 @@ all = [
     "lmdb",
     "mlflow",
     "parameterized",
-    "pydantic",
-    "pytest",
+    "pydantic>=1.10.20,<2",
+    "pytest<9",
     "transformers",
     "deepspeed",
 ]
@@ -144,6 +150,28 @@ split_before_expression_after_opening_paren = true
 
 [tool.codespell]
 ignore-words-list = "nd, ba, warmup"
+
+[tool.uv]
+default-groups = []
+
+[tool.uv.dependency-groups]
+test = { requires-python = ">=3.10" }
+test-lite = { requires-python = ">=3.10" }
+docs = { requires-python = ">=3.10" }
+lint = { requires-python = ">=3.10" }
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+torchvision = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [[tool.uv.index]]
 name = "testpypi"

@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  UV_NO_PROGRESS: "1"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Check uv.lock file
+        run: uv lock --check
+      - name: Install lint dependencies
+        run: uv sync --frozen --group lint
+      - name: Run pre-commit
+        run: uv run --frozen --group lint pre-commit run --all-files
+      - name: Check docstring coverage
+        run: >-
+          uv run --frozen --group lint interrogate -v
+          --ignore-init-method
+          --ignore-magic
+          --ignore-module
+          --ignore-nested-functions
+          --ignore-regex "__repr__"
+          --fail-under 80
+          mmengine
+
+  tests:
+    runs-on: ubuntu-22.04
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    name: tests / py${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Install test dependencies
+        run: uv sync --frozen --group test --python ${{ matrix.python-version }}
+      - name: Verify PyTorch CPU build
+        run: >-
+          uv run --frozen --group test python -c
+          "import torch, torchvision; print(torch.__version__, torchvision.__version__); assert torch.version.cuda is None"
+      - name: Run tests
+        run: >-
+          uv run --frozen --group test coverage run
+          --branch
+          --source mmengine
+          -m pytest tests/
+          --ignore tests/test_dist
+
+  build:
+    runs-on: ubuntu-22.04
+    needs: [lint, tests]
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Build distributions
+        run: uv build --no-sources --sdist --wheel --out-dir dist
+      - name: Check distributions
+        run: uvx twine check dist/*
+      - name: Verify wheel install
+        run: >-
+          uv run --isolated --no-project --python 3.10
+          --with "$(ls dist/onedl_mmengine-*.whl)"
+          python -c
+          "import importlib.metadata as m; import mmengine; assert m.version('onedl-mmengine') == mmengine.__version__; print(mmengine.__version__)"
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: onedl-mmengine-dist
+          path: dist/*
