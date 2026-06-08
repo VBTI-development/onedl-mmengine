@@ -131,7 +131,7 @@ include = [
 ]
 
 [build-system]
-requires = ["hatchling>=1.17.1,<1.18"]
+requires = ["hatchling>=1.27,<2"]
 build-backend = "hatchling.build"
 
 [tool.isort]
