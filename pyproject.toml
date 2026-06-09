@@ -7,7 +7,7 @@ authors = [
     { name = "VBTI Contributors", email = "oss-team@vbti.nl" },
     { name = "OneDL MMEngine Contributors" }
 ]
-license = "LicenseRef-Apache-2.0"
+license = { file = "LICENSE" }
 requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -22,6 +22,7 @@ dependencies = [
     "addict",
     "matplotlib",
     "numpy",
+    "packaging",
     "pyyaml",
     "rich",
     "termcolor",
@@ -31,7 +32,7 @@ dependencies = [
 
 [dependency-groups]
 test = [
-    "aim; sys_platform != 'win32'",
+    "aim>=3.18,<4; python_version < '3.13' and sys_platform != 'win32'",
     "bitsandbytes",
     "clearml",
     "coverage",
@@ -42,15 +43,17 @@ test = [
     "mlflow",
     "opencv-python",
     "parameterized",
-    "pydantic",
-    "pytest",
+    "pydantic>=1.10.20,<2",
+    "pytest<9",
+    "torch==2.4.1",
+    "torchvision==0.19.1",
     "transformers"
 ]
 test-lite = [
     "lmdb",
     "opencv-python",
     "parameterized",
-    "pytest",
+    "pytest<9",
 ]
 docs = [
     "docutils",
@@ -68,18 +71,23 @@ docs = [
     "torchvision",
     "urllib3"
 ]
+lint = [
+    "interrogate",
+    "pre-commit",
+]
 
 [project.optional-dependencies]
 all = [
     "addict",
     "matplotlib",
     "numpy",
+    "packaging",
     "pyyaml",
     "rich",
     "termcolor",
     "yapf",
     "regex; sys_platform == 'win32'",
-    "aim; sys_platform != 'win32'",
+    "aim>=3.18,<4; python_version < '3.13' and sys_platform != 'win32'",
     "bitsandbytes",
     "clearml",
     "coverage",
@@ -89,8 +97,8 @@ all = [
     "lmdb",
     "mlflow",
     "parameterized",
-    "pydantic",
-    "pytest",
+    "pydantic>=1.10.20,<2",
+    "pytest<9",
     "transformers",
     "deepspeed",
 ]
@@ -101,16 +109,30 @@ Repository = "https://github.com/VBTI-development/onedl-mmengine"
 Documentation = "https://onedl-mmengine.readthedocs.io/en/latest/"
 
 
-[tool.setuptools]
+[tool.hatch.build.targets.wheel]
+packages = ["mmengine"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"mmengine/hub/openmmlab.json" = "mmengine/hub/openmmlab.json"
+"mmengine/hub/deprecated.json" = "mmengine/hub/deprecated.json"
+"mmengine/hub/mmcls.json" = "mmengine/hub/mmcls.json"
+"mmengine/hub/torchvision_0.12.json" = "mmengine/hub/torchvision_0.12.json"
 
-[tool.setuptools.packages.find]
-include = ["mmengine", "mmengine.*"]
-exclude = ["tests"]
+[tool.hatch.build.targets.sdist]
+include = [
+    "/CITATION.cff",
+    "/LICENSE",
+    "/README.md",
+    "/docs",
+    "/examples",
+    "/mmengine",
+    "/tests",
+    "/pyproject.toml",
+]
 
 [build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
 
 [tool.isort]
 line_length = 79
@@ -128,6 +150,28 @@ split_before_expression_after_opening_paren = true
 
 [tool.codespell]
 ignore-words-list = "nd, ba, warmup"
+
+[tool.uv]
+default-groups = []
+
+[tool.uv.dependency-groups]
+test = { requires-python = ">=3.10" }
+test-lite = { requires-python = ">=3.10" }
+docs = { requires-python = ">=3.10" }
+lint = { requires-python = ">=3.10" }
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+torchvision = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [[tool.uv.index]]
 name = "testpypi"
