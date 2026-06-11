@@ -156,6 +156,29 @@ class InfiniteSampler(Sampler):
         """Iterate the indices."""
         yield from self.indices
 
+    def skip(self, num_samples: int) -> None:
+        """Fast-forward the sampler to an absolute position for resuming.
+
+        It rebuilds the deterministic index stream from the seed and discards
+        the first ``num_samples`` indices, so the next iteration continues from
+        the same position as an uninterrupted run. ``num_samples`` is absolute
+        (counted from the start of the stream, per rank), not relative to the
+        current position, and this method is meant to be called once before
+        iterating. Only indices are generated and no data is loaded, so it is
+        safe for any ``num_workers``; the cost is ``O(num_samples)`` index
+        generation, which is still far cheaper than loading the skipped data.
+
+        Args:
+            num_samples (int): The number of per-rank indices already consumed
+                in the previous training that should be skipped. Must be a
+                non-negative integer.
+        """
+        if num_samples < 0:
+            raise ValueError(
+                f'`num_samples` should be non-negative, but got {num_samples}')
+        self.indices = itertools.islice(self._indices_of_rank(), num_samples,
+                                        None)
+
     def __len__(self) -> int:
         """Length of base dataset."""
         return self.size

@@ -14,7 +14,7 @@ import torch
 import torch.nn as nn
 from torch.nn.parallel import DistributedDataParallel
 from torch.optim import SGD, Adam
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import BatchSampler, DataLoader, Dataset
 
 from mmengine.config import Config
 from mmengine.dataset import DefaultSampler, pseudo_collate
@@ -208,6 +208,18 @@ class ToyDatasetNoMeta(Dataset):
 
     def __getitem__(self, index):
         return dict(inputs=self.data[index], data_sample=self.label[index])
+
+
+class IndexDataset(Dataset):
+    # Returns the requested index so resume position can be asserted from the
+    # batch contents. Defined at module level to be picklable for DataLoader
+    # worker processes.
+
+    def __len__(self):
+        return 20
+
+    def __getitem__(self, index):
+        return index
 
 
 class ToyMetric1(BaseMetric):
@@ -2578,8 +2590,30 @@ class TestRunner(TestCase):
         self.assertIsNone(runner.param_schedulers)
 
         # 2.8 test fast_forward_on_resume parameter in IterBasedTrainLoop
+        class CountingDataset(Dataset):
+
+            def __init__(self):
+                self.fetch_count = 0
+
+            def __len__(self):
+                return 12
+
+            def __getitem__(self, index):
+                self.fetch_count += 1
+                return index
+
+        dataset = CountingDataset()
+        dataloader_iterator = _InfiniteDataloaderIterator(
+            DataLoader(dataset, batch_size=1, num_workers=0))
+        dataloader_iterator.skip_iter(3)
+        self.assertEqual(dataset.fetch_count, 0)
+        data = next(dataloader_iterator)
+        self.assertEqual(data.item(), 3)
+        self.assertEqual(dataset.fetch_count, 1)
+
         # 2.8.1 test fast_forward_on_resume=False (default behavior)
-        # When False, the dataloader should iterate through skipped steps
+        # When False, the dataloader should advance skipped indices without
+        # loading skipped batches.
         cfg = copy.deepcopy(self.iter_based_cfg)
         cfg.experiment_name = 'test_checkpoint20'
         cfg.train_cfg = dict(
@@ -2590,16 +2624,22 @@ class TestRunner(TestCase):
         runner = Runner.from_cfg(cfg)
         runner.train()
 
-        # Track dataloader iterator calls during resume
         dataloader_next_count = []
+        skip_iters = []
 
         original_next = _InfiniteDataloaderIterator.__next__
+        original_skip_iter = _InfiniteDataloaderIterator.skip_iter
 
         def tracked_next(self):
             dataloader_next_count.append(1)
             return original_next(self)
 
+        def tracked_skip_iter(self, num_iters):
+            skip_iters.append(num_iters)
+            return original_skip_iter(self, num_iters)
+
         _InfiniteDataloaderIterator.__next__ = tracked_next
+        _InfiniteDataloaderIterator.skip_iter = tracked_skip_iter
 
         try:
             # Resume from iter 6 checkpoint
@@ -2613,21 +2653,17 @@ class TestRunner(TestCase):
                 fast_forward_on_resume=False)
             runner = Runner.from_cfg(cfg)
 
-            # Clear counter before resume
             dataloader_next_count.clear()
+            skip_iters.clear()
             runner.resume(path)
-
-            # With fast_forward_on_resume=False, the iterator should be
-            # advanced 6 times during resume (for already trained iters)
-            # plus 6 times during the remaining training
             runner.train()
 
-            # Total should be: 6 (fast-forward) + 6 (remaining training) = 12
-            self.assertEqual(len(dataloader_next_count), 12)
+            self.assertEqual(skip_iters, [6])
+            self.assertEqual(len(dataloader_next_count), 6)
             self.assertEqual(runner.iter, 12)
 
             # 2.8.2 test fast_forward_on_resume=True
-            # When True, the fast-forward loop should be skipped
+            # When True, the fast-forward loop should be skipped.
             path = osp.join(self.temp_dir, 'iter_6.pth')
             cfg = copy.deepcopy(self.iter_based_cfg)
             cfg.experiment_name = 'test_checkpoint22'
@@ -2638,21 +2674,142 @@ class TestRunner(TestCase):
                 fast_forward_on_resume=True)
             runner = Runner.from_cfg(cfg)
 
-            # Clear counter before resume
             dataloader_next_count.clear()
+            skip_iters.clear()
             runner.resume(path)
-
-            # With fast_forward_on_resume=True, the iterator should NOT be
-            # advanced during resume, only during the remaining training
             runner.train()
 
-            # Total should be: 0 (no fast-forward) + 6 (remaining training) = 6
+            self.assertEqual(skip_iters, [])
             self.assertEqual(len(dataloader_next_count), 6)
             self.assertEqual(runner.iter, 12)
 
         finally:
             # Restore original method
             _InfiniteDataloaderIterator.__next__ = original_next
+            _InfiniteDataloaderIterator.skip_iter = original_skip_iter
+
+    def test_resume_skip_iter_with_infinite_sampler(self):
+        # With an InfiniteSampler, skip_iter should advance at the sampler
+        # level: no data is loaded for skipped iters, and iteration resumes at
+        # the deterministic position. The mechanism is num_workers-agnostic
+        # because the skip happens on the main-process sampler stream.
+        from mmengine.dataset import InfiniteSampler
+
+        class CountingDataset(Dataset):
+
+            def __init__(self):
+                self.fetch_count = 0
+
+            def __len__(self):
+                return 20
+
+            def __getitem__(self, index):
+                self.fetch_count += 1
+                return index
+
+        batch_size = 2
+        skip_iters = 4
+        skipped = skip_iters * batch_size
+
+        dataset = CountingDataset()
+        sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        dataloader = DataLoader(
+            dataset, batch_size=batch_size, sampler=sampler, num_workers=0)
+        dataloader_iterator = _InfiniteDataloaderIterator(dataloader)
+
+        dataloader_iterator.skip_iter(skip_iters)
+        # Skipping must not trigger any data loading.
+        self.assertEqual(dataset.fetch_count, 0)
+
+        # The resumed batch must match the deterministic stream position.
+        expected_sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        expected_iter = iter(expected_sampler)
+        expected = [next(expected_iter)
+                    for _ in range(skipped + batch_size)][skipped:]
+
+        batch = next(dataloader_iterator)
+        self.assertEqual(batch.tolist(), expected)
+        self.assertEqual(dataset.fetch_count, batch_size)
+
+    def test_resume_skip_iter_with_batch_sampler(self):
+        # Explicit batch_sampler makes DataLoader expose a default sampler at
+        # ``dataloader.sampler``. The fast path should unwrap PyTorch's standard
+        # BatchSampler and use its underlying InfiniteSampler instead.
+        from mmengine.dataset import InfiniteSampler
+
+        batch_size = 2
+        skip_iters = 4
+        skipped = skip_iters * batch_size
+
+        dataset = IndexDataset()
+        sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        batch_sampler = BatchSampler(
+            sampler, batch_size=batch_size, drop_last=False)
+        dataloader = DataLoader(
+            dataset, batch_sampler=batch_sampler, num_workers=0)
+        dataloader_iterator = _InfiniteDataloaderIterator(dataloader)
+
+        dataloader_iterator.skip_iter(skip_iters)
+        self.assertIsNone(dataloader_iterator._iterator)
+
+        expected_sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        expected_iter = iter(expected_sampler)
+        expected = [next(expected_iter)
+                    for _ in range(skipped + batch_size)][skipped:]
+
+        batch = next(dataloader_iterator)
+        self.assertEqual(batch.tolist(), expected)
+
+    def test_resume_skip_iter_lazy_iterator(self):
+        # White-box guard for the lazy-iterator contract: the underlying
+        # dataloader iterator must not be created until the first ``__next__``,
+        # so that ``skip_iter`` can fast-forward the sampler *before* any worker
+        # is spawned. Eager creation would make ``num_workers > 0`` prefetch and
+        # discard the skipped data.
+        from mmengine.dataset import InfiniteSampler
+
+        dataset = IndexDataset()
+        sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        dataloader = DataLoader(
+            dataset, batch_size=2, sampler=sampler, num_workers=0)
+        dataloader_iterator = _InfiniteDataloaderIterator(dataloader)
+
+        # Not created on construction ...
+        self.assertIsNone(dataloader_iterator._iterator)
+        # ... nor by the sampler-level fast path ...
+        dataloader_iterator.skip_iter(3)
+        self.assertIsNone(dataloader_iterator._iterator)
+        # ... only on the first actual fetch.
+        next(dataloader_iterator)
+        self.assertIsNotNone(dataloader_iterator._iterator)
+
+    def test_resume_skip_iter_multi_worker(self):
+        # End-to-end proof that sampler-level skip is correct with real worker
+        # processes (``num_workers=2``): the first resumed batch must equal the
+        # deterministic stream position. Workers are only spawned on the first
+        # fetch, i.e. after the skip, so they prefetch from the resumed position
+        # rather than from index 0.
+        from mmengine.dataset import InfiniteSampler
+
+        batch_size = 2
+        skip_iters = 3
+        skipped = skip_iters * batch_size
+
+        dataset = IndexDataset()
+        sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        dataloader = DataLoader(
+            dataset, batch_size=batch_size, sampler=sampler, num_workers=2)
+        dataloader_iterator = _InfiniteDataloaderIterator(dataloader)
+
+        dataloader_iterator.skip_iter(skip_iters)
+
+        expected_sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        expected_iter = iter(expected_sampler)
+        expected = [next(expected_iter)
+                    for _ in range(skipped + batch_size)][skipped:]
+
+        batch = next(dataloader_iterator)
+        self.assertEqual(batch.tolist(), expected)
 
     def test_build_runner(self):
         # No need to test other cases which have been tested in

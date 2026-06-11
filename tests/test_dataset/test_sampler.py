@@ -139,3 +139,61 @@ class TestInfiniteSampler(TestCase):
     def test_set_epoch(self):
         sampler = InfiniteSampler(self.dataset)
         sampler.set_epoch(10)
+
+    @patch('mmengine.dataset.sampler.get_dist_info', return_value=(0, 1))
+    def test_skip(self, mock):
+        # skip should land on the same deterministic position as an
+        # uninterrupted run, generating indices only (no data loading).
+        skip = 30
+        tail = 20
+
+        full = InfiniteSampler(self.dataset, shuffle=True, seed=42)
+        full_iter = iter(full)
+        expected = [next(full_iter) for _ in range(skip + tail)][skip:]
+
+        resumed = InfiniteSampler(self.dataset, shuffle=True, seed=42)
+        resumed.skip(skip)
+        resumed_iter = iter(resumed)
+        actual = [next(resumed_iter) for _ in range(tail)]
+
+        self.assertEqual(actual, expected)
+
+    @patch('mmengine.dataset.sampler.get_dist_info', return_value=(2, 3))
+    def test_skip_dist(self, mock):
+        # skip must respect the per-rank slicing.
+        skip = 15
+        tail = 10
+
+        full = InfiniteSampler(self.dataset, shuffle=False)
+        full_iter = iter(full)
+        expected = [next(full_iter) for _ in range(skip + tail)][skip:]
+
+        resumed = InfiniteSampler(self.dataset, shuffle=False)
+        resumed.skip(skip)
+        resumed_iter = iter(resumed)
+        actual = [next(resumed_iter) for _ in range(tail)]
+
+        self.assertEqual(actual, expected)
+
+    @patch('mmengine.dataset.sampler.get_dist_info', return_value=(1, 4))
+    def test_skip_dist_shuffle(self, mock):
+        # Highest-risk case: shuffle=True with rank slicing and a skip that
+        # crosses several `randperm` epochs of the underlying stream.
+        skip = self.data_length * 3 + 7
+        tail = 12
+
+        full = InfiniteSampler(self.dataset, shuffle=True, seed=123)
+        full_iter = iter(full)
+        expected = [next(full_iter) for _ in range(skip + tail)][skip:]
+
+        resumed = InfiniteSampler(self.dataset, shuffle=True, seed=123)
+        resumed.skip(skip)
+        resumed_iter = iter(resumed)
+        actual = [next(resumed_iter) for _ in range(tail)]
+
+        self.assertEqual(actual, expected)
+
+    def test_skip_negative(self):
+        sampler = InfiniteSampler(self.dataset)
+        with self.assertRaises(ValueError):
+            sampler.skip(-1)

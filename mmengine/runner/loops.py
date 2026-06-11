@@ -2,10 +2,10 @@
 import bisect
 import logging
 import time
-from typing import Dict, List, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 
 import torch
-from torch.utils.data import DataLoader
+from torch.utils.data import BatchSampler, DataLoader, IterableDataset
 
 from mmengine.evaluator import Evaluator
 from mmengine.logging import HistoryBuffer, print_log
@@ -156,41 +156,121 @@ class _InfiniteDataloaderIterator:
 
     def __init__(self, dataloader: DataLoader) -> None:
         self._dataloader = dataloader
-        self._iterator = iter(self._dataloader)
+        # The iterator is created lazily so that, when resuming, the sampler
+        # can be fast-forwarded *before* any worker is spawned and prefetches
+        # data. Eagerly creating it here would make `num_workers > 0` load and
+        # discard the skipped data.
+        self._iterator: Any = None
         self._epoch = 0
 
     def __iter__(self):
         return self
 
     def __next__(self) -> Sequence[dict]:
-        try:
-            data = next(self._iterator)
-        except StopIteration:
+        return self._next_data()
+
+    def _ensure_iterator(self) -> None:
+        if self._iterator is None:
+            self._iterator = iter(self._dataloader)
+
+    def skip_iter(self, num_iters: int) -> None:
+        if num_iters <= 0:
+            return
+        sampler = self._resolve_sampler()
+        batch_size = self._resolve_batch_size()
+        if batch_size and sampler is not None:
+            # Fast path (multi-worker safe): advance the deterministic sampler
+            # stream by the number of already-consumed indices, then drop the
+            # iterator so it is rebuilt lazily on the next ``__next__`` and the
+            # workers prefetch from the resumed position without loading the
+            # skipped data. Relies on the ``skip(num_samples)`` contract
+            # documented on ``InfiniteSampler.skip``.
+            sampler.skip(num_iters * batch_size)
+            self._iterator = None
+        else:
             print_log(
-                'Reach the end of the dataloader, it will be '
-                'restarted and continue to iterate. It is '
-                'recommended to use '
-                '`mmengine.dataset.InfiniteSampler` to enable the '
-                'dataloader to iterate infinitely.',
+                'Fast sampler-level resume is unavailable: no sampler with a '
+                '`skip` method was found directly or through a standard '
+                '`BatchSampler`, or the batch size could not be resolved. '
+                'Falling back to advancing the dataloader iterator one step at '
+                'a time, which is slower and, with `num_workers > 0`, still '
+                'loads and discards the skipped data.',
                 logger='current',
                 level=logging.WARNING)
-            self._epoch += 1
-            if hasattr(self._dataloader, 'sampler') and hasattr(
-                    self._dataloader.sampler, 'set_epoch'):
-                # In case the` _SingleProcessDataLoaderIter` has no sampler,
-                # or data loader uses `SequentialSampler` in Pytorch.
-                self._dataloader.sampler.set_epoch(self._epoch)
+            for _ in range(num_iters):
+                self._next_data(skip_loading=True)
 
-            elif hasattr(self._dataloader, 'batch_sampler') and hasattr(
-                    self._dataloader.batch_sampler.sampler, 'set_epoch'):
-                # In case the` _SingleProcessDataLoaderIter` has no batch
-                # sampler. batch sampler in pytorch warps the sampler as its
-                # attributes.
-                self._dataloader.batch_sampler.sampler.set_epoch(self._epoch)
-            time.sleep(2)  # Prevent possible deadlock during epoch transition
-            self._iterator = iter(self._dataloader)
-            data = next(self._iterator)
-        return data
+    def _resolve_sampler(self) -> Optional[Any]:
+        sampler = getattr(self._dataloader, 'sampler', None)
+        if sampler is not None and hasattr(sampler, 'skip'):
+            return sampler
+
+        batch_sampler = getattr(self._dataloader, 'batch_sampler', None)
+        # Only unwrap PyTorch's fixed-size BatchSampler. Custom batch samplers
+        # may consume sampler indices differently from ``num_iters * batch_size``.
+        if (batch_sampler is not None
+                and batch_sampler.__class__ is BatchSampler):
+            sampler = getattr(batch_sampler, 'sampler', None)
+            if sampler is not None and hasattr(sampler, 'skip'):
+                return sampler
+        return None
+
+    def _resolve_batch_size(self) -> Optional[int]:
+        batch_size = getattr(self._dataloader, 'batch_size', None)
+        if batch_size is not None:
+            return batch_size
+        # ``batch_size`` is None when a custom ``batch_sampler`` is used; only a
+        # standard fixed-size batch sampler exposes a usable ``batch_size``.
+        batch_sampler = getattr(self._dataloader, 'batch_sampler', None)
+        return getattr(batch_sampler, 'batch_size', None)
+
+    def _next_data(self, skip_loading: bool = False) -> Any:
+        self._ensure_iterator()
+        try:
+            if skip_loading and self._can_skip_without_loading():
+                self._iterator._next_index()
+                return None
+            return next(self._iterator)
+        except StopIteration:
+            self._reset_iterator()
+            if skip_loading and self._can_skip_without_loading():
+                self._iterator._next_index()
+                return None
+            return next(self._iterator)
+
+    def _can_skip_without_loading(self) -> bool:
+        # ``_next_index`` is a private PyTorch API. It only advances the sampler
+        # of a single-process iterator without loading data. For multi-worker
+        # iterators it cannot be used safely (prefetch state would desync), and
+        # it may be absent on future/other iterator types, hence the guards.
+        return (getattr(self._dataloader, 'num_workers', 0) == 0
+                and not isinstance(self._dataloader.dataset, IterableDataset)
+                and hasattr(self._iterator, '_next_index'))
+
+    def _reset_iterator(self) -> None:
+        print_log(
+            'Reach the end of the dataloader, it will be '
+            'restarted and continue to iterate. It is '
+            'recommended to use '
+            '`mmengine.dataset.InfiniteSampler` to enable the '
+            'dataloader to iterate infinitely.',
+            logger='current',
+            level=logging.WARNING)
+        self._epoch += 1
+        if hasattr(self._dataloader, 'sampler') and hasattr(
+                self._dataloader.sampler, 'set_epoch'):
+            # In case the` _SingleProcessDataLoaderIter` has no sampler,
+            # or data loader uses `SequentialSampler` in Pytorch.
+            self._dataloader.sampler.set_epoch(self._epoch)
+
+        elif hasattr(self._dataloader, 'batch_sampler') and hasattr(
+                self._dataloader.batch_sampler.sampler, 'set_epoch'):
+            # In case the` _SingleProcessDataLoaderIter` has no batch
+            # sampler. batch sampler in pytorch warps the sampler as its
+            # attributes.
+            self._dataloader.batch_sampler.sampler.set_epoch(self._epoch)
+        time.sleep(2)  # Prevent possible deadlock during epoch transition
+        self._iterator = iter(self._dataloader)
 
 
 @LOOPS.register_module()
@@ -211,11 +291,15 @@ class IterBasedTrainLoop(BaseLoop):
             corresponding milestone. Defaults to None.
         fast_forward_on_resume (bool): Whether to skip advancing the
             dataloader iterator when resuming from a checkpoint. When
-            `False` (default), the dataloader will iterate through
-            trained steps in the previous training to maintain training
-            state consistency. When `True`, this fast-forward
-            is skipped to save time, but may affect reproducibility if
-            the dataloader has state-dependent behavior.
+            `False` (default), the dataloader is advanced through the
+            already-trained steps to maintain training state consistency.
+            If the sampler supports a `skip` method (e.g.
+            :class:`~mmengine.dataset.InfiniteSampler`) and the batch size
+            can be resolved, this advance is done cheaply at the sampler
+            level without loading the skipped data; otherwise it falls back
+            to advancing the dataloader iterator step by step. When `True`,
+            this fast-forward is skipped to save time, but may affect
+            reproducibility if the dataloader has state-dependent behavior.
     """
 
     def __init__(self,
@@ -289,8 +373,7 @@ class IterBasedTrainLoop(BaseLoop):
                     'that has already been trained',
                     logger='current',
                     level=logging.INFO)
-                for _ in range(self._iter):
-                    next(self.dataloader_iterator)
+                self.dataloader_iterator.skip_iter(self._iter)
             else:
                 print_log(
                     'Skip advancing dataloader to save time. Note that this '
