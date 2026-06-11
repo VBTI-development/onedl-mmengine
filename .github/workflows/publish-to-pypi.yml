@@ -24,7 +24,9 @@ jobs:
           python-version: '3.10'
       - name: Build MMEngine
         run: |
-          uv build --sdist
+          uv build --sdist --wheel
+      - name: Verify package contents
+        run: python .github/scripts/verify-package-contents.py dist
       - name: Publish distribution to PyPI
         run: |
           uv publish
