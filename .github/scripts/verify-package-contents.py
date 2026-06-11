@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import argparse
 import tarfile
 import zipfile
@@ -41,8 +40,7 @@ def verify_sdist(sdist: Path) -> None:
     prefix = sdist.name.removesuffix('.tar.gz')
     missing = {
         name
-        for name in EXPECTED_FILES
-        if f'{prefix}/{name}' not in names
+        for name in EXPECTED_FILES if f'{prefix}/{name}' not in names
     }
     if missing:
         raise SystemExit(f'{sdist.name} missing {sorted(missing)}')
@@ -52,7 +50,8 @@ def main() -> None:
     args = parse_args()
     dist_dir = Path(args.dist_dir)
     wheel = require_one(sorted(dist_dir.glob('onedl_mmengine-*.whl')), 'wheel')
-    sdist = require_one(sorted(dist_dir.glob('onedl_mmengine-*.tar.gz')), 'sdist')
+    sdist = require_one(
+        sorted(dist_dir.glob('onedl_mmengine-*.tar.gz')), 'sdist')
     verify_wheel(wheel)
     verify_sdist(sdist)
 
