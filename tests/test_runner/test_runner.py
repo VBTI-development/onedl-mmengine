@@ -14,7 +14,7 @@ import torch
 import torch.nn as nn
 from torch.nn.parallel import DistributedDataParallel
 from torch.optim import SGD, Adam
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import BatchSampler, DataLoader, Dataset
 
 from mmengine.config import Config
 from mmengine.dataset import DefaultSampler, pseudo_collate
@@ -2730,6 +2730,35 @@ class TestRunner(TestCase):
         batch = next(dataloader_iterator)
         self.assertEqual(batch.tolist(), expected)
         self.assertEqual(dataset.fetch_count, batch_size)
+
+    def test_resume_skip_iter_with_batch_sampler(self):
+        # Explicit batch_sampler makes DataLoader expose a default sampler at
+        # ``dataloader.sampler``. The fast path should unwrap PyTorch's standard
+        # BatchSampler and use its underlying InfiniteSampler instead.
+        from mmengine.dataset import InfiniteSampler
+
+        batch_size = 2
+        skip_iters = 4
+        skipped = skip_iters * batch_size
+
+        dataset = IndexDataset()
+        sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        batch_sampler = BatchSampler(
+            sampler, batch_size=batch_size, drop_last=False)
+        dataloader = DataLoader(
+            dataset, batch_sampler=batch_sampler, num_workers=0)
+        dataloader_iterator = _InfiniteDataloaderIterator(dataloader)
+
+        dataloader_iterator.skip_iter(skip_iters)
+        self.assertIsNone(dataloader_iterator._iterator)
+
+        expected_sampler = InfiniteSampler(dataset, shuffle=True, seed=42)
+        expected_iter = iter(expected_sampler)
+        expected = [next(expected_iter)
+                    for _ in range(skipped + batch_size)][skipped:]
+
+        batch = next(dataloader_iterator)
+        self.assertEqual(batch.tolist(), expected)
 
     def test_resume_skip_iter_lazy_iterator(self):
         # White-box guard for the lazy-iterator contract: the underlying

@@ -5,7 +5,7 @@ import time
 from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 
 import torch
-from torch.utils.data import DataLoader, IterableDataset
+from torch.utils.data import BatchSampler, DataLoader, IterableDataset
 
 from mmengine.evaluator import Evaluator
 from mmengine.logging import HistoryBuffer, print_log
@@ -176,9 +176,9 @@ class _InfiniteDataloaderIterator:
     def skip_iter(self, num_iters: int) -> None:
         if num_iters <= 0:
             return
-        sampler = getattr(self._dataloader, 'sampler', None)
+        sampler = self._resolve_sampler()
         batch_size = self._resolve_batch_size()
-        if batch_size and sampler is not None and hasattr(sampler, 'skip'):
+        if batch_size and sampler is not None:
             # Fast path (multi-worker safe): advance the deterministic sampler
             # stream by the number of already-consumed indices, then drop the
             # iterator so it is rebuilt lazily on the next ``__next__`` and the
@@ -189,16 +189,31 @@ class _InfiniteDataloaderIterator:
             self._iterator = None
         else:
             print_log(
-                'Fast sampler-level resume is unavailable: the sampler has no '
-                '`skip` method or the batch size could not be resolved (e.g. a '
-                'custom `batch_sampler`). Falling back to advancing the '
-                'dataloader iterator one step at a time, which is slower and, '
-                'with `num_workers > 0`, still loads and discards the skipped '
-                'data.',
+                'Fast sampler-level resume is unavailable: no sampler with a '
+                '`skip` method was found directly or through a standard '
+                '`BatchSampler`, or the batch size could not be resolved. '
+                'Falling back to advancing the dataloader iterator one step at '
+                'a time, which is slower and, with `num_workers > 0`, still '
+                'loads and discards the skipped data.',
                 logger='current',
                 level=logging.WARNING)
             for _ in range(num_iters):
                 self._next_data(skip_loading=True)
+
+    def _resolve_sampler(self) -> Optional[Any]:
+        sampler = getattr(self._dataloader, 'sampler', None)
+        if sampler is not None and hasattr(sampler, 'skip'):
+            return sampler
+
+        batch_sampler = getattr(self._dataloader, 'batch_sampler', None)
+        # Only unwrap PyTorch's fixed-size BatchSampler. Custom batch samplers
+        # may consume sampler indices differently from ``num_iters * batch_size``.
+        if (batch_sampler is not None
+                and batch_sampler.__class__ is BatchSampler):
+            sampler = getattr(batch_sampler, 'sampler', None)
+            if sampler is not None and hasattr(sampler, 'skip'):
+                return sampler
+        return None
 
     def _resolve_batch_size(self) -> Optional[int]:
         batch_size = getattr(self._dataloader, 'batch_size', None)

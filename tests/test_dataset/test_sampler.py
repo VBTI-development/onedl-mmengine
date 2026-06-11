@@ -195,5 +195,5 @@ class TestInfiniteSampler(TestCase):
 
     def test_skip_negative(self):
         sampler = InfiniteSampler(self.dataset)
-        with self.assertRaises(AssertionError):
+        with self.assertRaises(ValueError):
             sampler.skip(-1)

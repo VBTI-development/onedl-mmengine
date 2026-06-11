@@ -173,8 +173,9 @@ class InfiniteSampler(Sampler):
                 in the previous training that should be skipped. Must be a
                 non-negative integer.
         """
-        assert num_samples >= 0, \
-            f'`num_samples` should be non-negative, but got {num_samples}'
+        if num_samples < 0:
+            raise ValueError(
+                f'`num_samples` should be non-negative, but got {num_samples}')
         self.indices = itertools.islice(self._indices_of_rank(), num_samples,
                                         None)
 
